@@ -47,7 +47,7 @@ const Login = (props) => {
   return (
     <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
-        <img src={LogoLab} alt="LogLab" />;
+        <img src={LogoLab} alt="LogLab" />
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>

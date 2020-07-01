@@ -4,16 +4,21 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../theme/theme';
 import Layout from '../layout/Layout';
 import Login from '../components/login/Login';
+import Users from '../components/UserComponents/UserForm';
+import AuthState from '../context/authentication/authState';
 
 export default function App() {
   return (
-    <Router>
-      <ThemeProvider theme={theme}>
-        <Switch>
-          <Route path="/layout" exact component={Layout} />
-          <Route path="/" exact component={Login} />
-        </Switch>
-      </ThemeProvider>
-    </Router>
+    <AuthState>
+      <Router>
+        <ThemeProvider theme={theme}>
+          <Switch>
+            <Route path="/layout" exact component={Layout} />
+            <Route path="/users" exact component={Users} />
+            <Route path="/" exact component={Login} />
+          </Switch>
+        </ThemeProvider>
+      </Router>
+    </AuthState>
   );
 }

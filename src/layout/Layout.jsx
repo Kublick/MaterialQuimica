@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, Container } from '@material-ui/core';
 import Navbar from './Navbar';
 import Drawer from './Drawer';
 
@@ -21,7 +21,7 @@ const styles = makeStyles((theme) => ({
   },
 }));
 
-const Layout = () => {
+const Layout = (props) => {
   const classes = styles();
 
   return (
@@ -30,7 +30,9 @@ const Layout = () => {
       <Drawer />
       <main className={classes.content}>
         <div className={classes.toolbar}></div>
-        Contenido Aquí
+        <Container>
+          <h1>Test</h1>
+        </Container>
       </main>
     </div>
   );

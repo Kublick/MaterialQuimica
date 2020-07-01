@@ -5,8 +5,11 @@ import {
   ListItemIcon,
   ListItemText,
   Divider,
+  MenuItem,
+  Button,
 } from '@material-ui/core';
 import { Person, Create } from '@material-ui/icons';
+import { withRouter, Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
 
 const color = 'rgba(255, 255, 255, 0.7)';
@@ -19,16 +22,16 @@ const categories = [
   {
     id: 'Pacientes',
     children: [
-      { id: 'Registrar', icon: <Person /> },
+      { id: 'Registrar', icon: <Person />, pagelink: '/users/' },
       { id: 'Actualizar', icon: <Create /> },
     ],
   },
   {
     id: 'Ordenes',
     children: [
-      { id: 'Registrar', icon: <Person /> },
-      { id: 'Actualizar', icon: <Person /> },
-      { id: 'Reporte', icon: <Person /> },
+      { id: 'Registro de Orden', icon: <Person /> },
+      { id: 'Consulta', icon: <Person /> },
+      { id: 'Registro de Resultados', icon: <Person /> },
     ],
   },
   {
@@ -74,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: 0,
   },
   itemText: {
-    fontSize: 16,
+    fontSize: 14,
     color: color,
     fontWeight: 500,
 
@@ -101,7 +104,7 @@ const useStyles = makeStyles((theme) => ({
   textDense: {},
 }));
 
-const MenuList = () => {
+const MenuList = (props) => {
   const classes = useStyles();
   return (
     <div>
@@ -134,6 +137,9 @@ const MenuList = () => {
               </ListItem>
             ))}
             <Divider className={classes.divider} />
+            <Button onClick={() => props.history.push('/users/')}>
+              click me
+            </Button>
           </React.Fragment>
         ))}
       </List>
@@ -141,4 +147,4 @@ const MenuList = () => {
   );
 };
 
-export default MenuList;
+export default withRouter(MenuList);
