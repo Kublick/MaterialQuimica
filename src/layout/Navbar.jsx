@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
+    background: '#1B72E7',
   },
 }));
 
@@ -24,7 +25,7 @@ export const Navbar = () => {
     <AppBar position="fixed" color="primary" className={classes.appBar}>
       <Toolbar>
         <Typography variant="h5" className={classes.title}>
-          Seccion
+          Sección
         </Typography>
         <IconButton
           color="inherit"

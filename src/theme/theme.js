@@ -19,6 +19,7 @@ const theme = createMuiTheme({
     MuiDrawer: {
       paper: {
         minWidth: 256,
+        background: '#051E34',
       },
       paperAnchorDockedLeft: {
         borderRight: 'none',
@@ -28,3 +29,5 @@ const theme = createMuiTheme({
 });
 
 export default theme;
+
+// background: '#18202c',

@@ -30,7 +30,7 @@ const Layout = () => {
       <Drawer />
       <main className={classes.content}>
         <div className={classes.toolbar}></div>
-        Contenido Aqui
+        Contenido Aquí
       </main>
     </div>
   );
