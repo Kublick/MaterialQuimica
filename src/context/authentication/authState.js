@@ -65,10 +65,10 @@ const AuthState = (props) => {
     }
   };
 
-  const employeeLogin = async (datos) => {
+  const employeeLogin = async (data) => {
     try {
-      console.log('que llega', datos);
-      const res = await axiosClient.post('/api/auth', datos);
+      console.log('que llega', data);
+      const res = await axiosClient.post('/api/auth', data);
 
       console.log(res.data);
 

@@ -89,11 +89,7 @@ const Login = (props) => {
     if (authenticated) {
       props.history.push('/layout/');
     }
-
-    if (alerts) {
-      showAlert(JSON.stringify(alerts.alerts));
-    }
-  }, [alerts, authenticated, props.history]);
+  }, [authenticated, props.history]);
 
   return (
     <Container component="main" maxWidth="xs">

@@ -8,6 +8,7 @@ import {
   Container,
 } from '@material-ui/core';
 import AuthContext from '../../context/authentication/authContext';
+import AlertsContext from '../../context/alerts/alertsContext';
 import { useForm } from 'react-hook-form';
 import LogoLab from '../../assets/Logo_Lab_half.png';
 import * as yup from 'yup';
@@ -43,16 +44,18 @@ const schema = yup.object().shape({
 
 const Login = (props) => {
   const classes = useStyles();
+
+  const alertsContext = useContext(AlertsContext);
+  const { alert, showAlert } = alertsContext;
+
   const authContext = useContext(AuthContext);
-  const { employee, alerts, authenticated, employeeLogin } = authContext;
+  const { alerts, authenticated, employeeLogin } = authContext;
 
   useEffect(() => {
     if (authenticated) {
       props.history.push('/layout/');
     }
   }, [alerts, authenticated, props.history]);
-
-  //const { name, password } = employee;
 
   const { register, handleSubmit, errors } = useForm({
     mode: 'onBlur',

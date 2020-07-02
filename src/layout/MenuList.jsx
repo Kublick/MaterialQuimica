@@ -124,7 +124,14 @@ const MenuList = (props) => {
               </ListItemText>
             </ListItem>
             {children.map(({ id: childId, icon, link }) => (
-              <ListItem button dense key={childId} className={classes.item}>
+              <ListItem
+                button
+                component={Link}
+                to={link}
+                dense
+                key={childId}
+                className={classes.item}
+              >
                 <ListItemIcon className={classes.itemIcon}>{icon}</ListItemIcon>
                 <ListItemText
                   classes={{
