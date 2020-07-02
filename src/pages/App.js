@@ -7,20 +7,23 @@ import Login from '../components/login/Login';
 import Users from '../components/UserComponents/UserForm';
 import AddEmployee from '../components/login/NewEmployee';
 import AuthState from '../context/authentication/authState';
+import AlertsState from '../context/alerts/alertsState';
 
 export default function App() {
   return (
     <AuthState>
-      <Router>
-        <ThemeProvider theme={theme}>
-          <Switch>
-            <Route path="/layout" exact component={Layout} />
-            <Route path="/users" exact component={Users} />
-            <Route path="/addEmployee" exact component={AddEmployee} />
-            <Route path="/" exact component={Login} />
-          </Switch>
-        </ThemeProvider>
-      </Router>
+      <AlertsState>
+        <Router>
+          <ThemeProvider theme={theme}>
+            <Switch>
+              <Route path="/login" exact component={Login} />
+              <Route path="/layout" exact component={Layout} />
+              <Route path="/addEmployee" exact component={AddEmployee} />
+              <Route path="/users" exact component={Users} />
+            </Switch>
+          </ThemeProvider>
+        </Router>
+      </AlertsState>
     </AuthState>
   );
 }

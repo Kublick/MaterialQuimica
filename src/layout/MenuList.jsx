@@ -22,15 +22,15 @@ const categories = [
   {
     id: 'Pacientes',
     children: [
-      { id: 'Registrar', icon: <Person />, pagelink: '/users/' },
-      { id: 'Actualizar', icon: <Create /> },
+      { id: 'Registrar', icon: <Person />, link: '/users' },
+      { id: 'Actualizar', icon: <Create />, link: '/usersUpdate' },
     ],
   },
   {
     id: 'Ordenes',
     children: [
-      { id: 'Registro de Orden', icon: <Person /> },
-      { id: 'Consulta', icon: <Person /> },
+      { id: 'Registro de Orden', icon: <Person />, link: '/orders' },
+      { id: 'Consulta', icon: <Person />, link: '/layout' },
       { id: 'Registro de Resultados', icon: <Person /> },
     ],
   },
@@ -59,8 +59,8 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       background: 'rgba(255,255,255,.08)',
     },
-    paddingTop: theme.spacing.unit / 2,
-    paddingBottom: theme.spacing.unit / 2,
+    paddingTop: theme.spacing(0.5),
+    paddingBottom: theme.spacing(0.5),
   },
   activeItem: {
     '& *': {
@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
   },
   categoryHeader: {
     paddingTop: 20,
-    paddingBottom: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing(0.5),
     paddingRight: 0,
   },
   itemText: {
@@ -93,8 +93,8 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.common.white,
   },
   smallIcon: {
-    paddingTop: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
     borderLeft: `1px solid ${dividerColor}`,
     borderRadius: 0,
     '&:hover': {
@@ -123,13 +123,12 @@ const MenuList = (props) => {
                 {id}
               </ListItemText>
             </ListItem>
-            {children.map(({ id: childId, icon, active }) => (
+            {children.map(({ id: childId, icon, link }) => (
               <ListItem button dense key={childId} className={classes.item}>
                 <ListItemIcon className={classes.itemIcon}>{icon}</ListItemIcon>
                 <ListItemText
                   classes={{
                     primary: classes.itemText,
-                    textDense: classes.textDense,
                   }}
                 >
                   {childId}
@@ -137,9 +136,6 @@ const MenuList = (props) => {
               </ListItem>
             ))}
             <Divider className={classes.divider} />
-            <Button onClick={() => props.history.push('/users/')}>
-              click me
-            </Button>
           </React.Fragment>
         ))}
       </List>

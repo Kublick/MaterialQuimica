@@ -1,12 +1,14 @@
 import React, { useReducer } from 'react';
 import AuthContext from './authContext';
 import authReducer from './authReducer';
+import tokenAuth from '../../config/tokenAuth';
 import {
   EMPLOYEELOGIN_ERROR,
   EMPLOYEELOGIN_SUCCESS,
   EMPLOYEE_ENDSESION,
   ADD_EMPLOYEE,
   EMPLOYEE_ERROR,
+  EMPLOYEE_LOGIN,
 } from '../../types';
 import axiosClient from '../../config/axios';
 
@@ -15,25 +17,71 @@ const AuthState = (props) => {
     token: localStorage.getItem('token'),
     authenticated: null,
     employee: null,
-    message: null,
+    alerts: null,
   };
 
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   const addEmployee = async (data) => {
     try {
-      console.log('que data tengo', data);
       const res = await axiosClient.post('/api/employees', data);
 
       dispatch({
         type: ADD_EMPLOYEE,
         payload: res.data,
       });
+
+      authEmployee();
+    } catch (error) {
+      const alert = { alerts: error.response.data.msg };
+
+      dispatch({
+        type: EMPLOYEE_ERROR,
+        payload: alert,
+      });
+    }
+  };
+
+  const authEmployee = async () => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      tokenAuth(token);
+    }
+
+    try {
+      const res = await axiosClient.get('/api/auth');
+
+      dispatch({
+        type: EMPLOYEELOGIN_SUCCESS,
+        payload: res.data.employee,
+      });
     } catch (error) {
       console.log(error);
       dispatch({
         type: EMPLOYEE_ERROR,
-        dispatch: error.response.msg,
+        payload: error.response.data.msg,
+      });
+    }
+  };
+
+  const employeeLogin = async (datos) => {
+    try {
+      console.log('que llega', datos);
+      const res = await axiosClient.post('/api/auth', datos);
+
+      console.log(res.data);
+
+      dispatch({
+        type: EMPLOYEE_LOGIN,
+        payload: res.data,
+      });
+      authEmployee();
+    } catch (error) {
+      console.log(error.response);
+      dispatch({
+        type: EMPLOYEELOGIN_ERROR,
+        payload: error.response.data.msg,
       });
     }
   };
@@ -44,8 +92,9 @@ const AuthState = (props) => {
         token: state.token,
         authenticated: state.authenticated,
         employee: state.employee,
-        message: state.message,
+        alerts: state.alerts,
         addEmployee,
+        employeeLogin,
       }}
     >
       {props.children}

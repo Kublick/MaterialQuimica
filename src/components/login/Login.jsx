@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
   Button,
   TextField,
@@ -7,10 +7,11 @@ import {
   makeStyles,
   Container,
 } from '@material-ui/core';
-
+import AuthContext from '../../context/authentication/authContext';
 import { useForm } from 'react-hook-form';
-
 import LogoLab from '../../assets/Logo_Lab_half.png';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -29,19 +30,37 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const schema = yup.object().shape({
+  name: yup
+    .string()
+    .min(3, 'Ingrese mínimo 3 caracteres')
+    .required('campo requerido'),
+  password: yup
+    .string()
+    .min(6, 'mínimo 6 caracteres')
+    .required('campo requerido'),
+});
+
 const Login = (props) => {
   const classes = useStyles();
+  const authContext = useContext(AuthContext);
+  const { employee, alerts, authenticated, employeeLogin } = authContext;
+
+  useEffect(() => {
+    if (authenticated) {
+      props.history.push('/layout/');
+    }
+  }, [alerts, authenticated, props.history]);
+
+  //const { name, password } = employee;
+
   const { register, handleSubmit, errors } = useForm({
     mode: 'onBlur',
+    resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data, e) => {
-    console.log('nombre: ', data.name);
-    console.log('pass: ', data.password);
-    if (data.name === 'Cesar' && data.password === 'Cesar') {
-      console.log('correct');
-      props.history.push('/layout');
-    }
+  const onSubmit = (data) => {
+    employeeLogin({ name: data.name, password: data.password });
   };
 
   return (
@@ -49,7 +68,7 @@ const Login = (props) => {
       <div className={classes.paper}>
         <img src={LogoLab} alt="LogLab" />
         <Typography component="h1" variant="h5">
-          Sign in
+          Log in
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
           <TextField
@@ -64,6 +83,9 @@ const Login = (props) => {
             error={!!errors.user}
             autoFocus
           />
+          <Typography variant="h6" className={classes.error}>
+            {errors.name?.message}
+          </Typography>
 
           <TextField
             variant="outlined"
@@ -77,6 +99,15 @@ const Login = (props) => {
             inputRef={register({ required: true })}
             autoComplete="current password"
           />
+          <Typography variant="h6" className={classes.error}>
+            {errors.password?.message}
+          </Typography>
+
+          {alerts ? (
+            <Typography variant="h5" className={classes.error} variant="h5">
+              El Empleado no existe
+            </Typography>
+          ) : null}
 
           <Button
             type="submit"

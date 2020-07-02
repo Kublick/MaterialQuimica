@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles, Container } from '@material-ui/core';
 import Navbar from './Navbar';
 import Drawer from './Drawer';
+import UserForm from '../components/UserComponents/UserForm';
 
 const drawerWidth = 240;
 
@@ -26,12 +27,12 @@ const Layout = (props) => {
 
   return (
     <div className={classes.root}>
-      <Navbar className={classes.appBar} />
       <Drawer />
+      <Navbar className={classes.appBar} />
       <main className={classes.content}>
         <div className={classes.toolbar}></div>
         <Container>
-          <h1>Test</h1>
+          <UserForm />
         </Container>
       </main>
     </div>

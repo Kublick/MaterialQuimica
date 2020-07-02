@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import AuthContext from '../../context/authentication/authContext';
 import {
   Button,
@@ -13,6 +13,9 @@ import {
 } from '@material-ui/core';
 import { useForm, Controller } from 'react-hook-form';
 import LogoLab from '../../assets/Logo_Lab_half.png';
+import AlertsContext from '../../context/alerts/alertsContext';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,31 +38,62 @@ const useStyles = makeStyles((theme) => ({
   select: {
     margin: theme.spacing(3, 0, 2),
   },
+  error: {
+    backgroundColor: 'red',
+    textAlign: 'center',
+    color: 'white',
+  },
 }));
 
-const Login = (props) => {
-  const authContext = useContext(AuthContext);
-  const { addEmployee } = authContext;
+const schema = yup.object().shape({
+  name: yup
+    .string()
+    .min(3, 'Ingrese mínimo 3 caracteres')
+    .required('campo requerido'),
+  password: yup
+    .string()
+    .min(6, 'mínimo 6 caracteres')
+    .required('campo requerido'),
+  email: yup
+    .string()
+    .email('email valido requerido')
+    .required('campo requerido'),
+});
 
-  const [employee, saveEmployee] = useState({
+const Login = (props) => {
+  // take values from
+  const alertsContext = useContext(AlertsContext);
+  const { alert, showAlert } = alertsContext;
+
+  const authContext = useContext(AuthContext);
+  const { alerts, authenticated, addEmployee } = authContext;
+
+  const classes = useStyles();
+
+  const { register, handleSubmit, errors, control } = useForm({
     name: '',
     password: '',
     email: '',
     role: '',
+    resolver: yupResolver(schema),
+    mode: 'onBlur',
   });
-  const { name, email, password, role } = employee;
 
-  const classes = useStyles();
-
-  const { register, handleSubmit, errors, control } = useForm();
-
-  const [data, setData] = useState(null);
-
-  const onSubmit = (data, e) => {
-    saveEmployee(data);
+  const onSubmit = (data) => {
+    //  showAlert(true);
 
     addEmployee(data);
   };
+
+  useEffect(() => {
+    if (authenticated) {
+      props.history.push('/layout/');
+    }
+
+    if (alerts) {
+      showAlert(JSON.stringify(alerts.alerts));
+    }
+  }, [alerts, authenticated, props.history]);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -81,6 +115,9 @@ const Login = (props) => {
             error={!!errors.user}
             autoFocus
           />
+          <Typography variant="h6" className={classes.error}>
+            {errors.name?.message}
+          </Typography>
 
           <TextField
             variant="outlined"
@@ -94,7 +131,9 @@ const Login = (props) => {
             inputRef={register({ required: true })}
             autoComplete="current email"
           />
-
+          <Typography variant="h6" className={classes.error}>
+            {errors.email?.message}
+          </Typography>
           <TextField
             variant="outlined"
             margin="normal"
@@ -107,7 +146,9 @@ const Login = (props) => {
             inputRef={register({ required: true })}
             autoComplete="current password"
           />
-
+          <Typography variant="h6" className={classes.error}>
+            {errors.password?.message}
+          </Typography>
           <section>
             <InputLabel id="role" className={classes.select}>
               Rol
@@ -123,6 +164,7 @@ const Login = (props) => {
               }
               name="role"
               control={control}
+              error={!!errors.role}
             />
           </section>
 
@@ -135,9 +177,13 @@ const Login = (props) => {
           >
             generar
           </Button>
+          {alert ? (
+            <Typography variant="h5" className={classes.error} variant="h5">
+              El Empleado ya existe
+            </Typography>
+          ) : null}
         </form>
       </div>
-      <Box mt={8}></Box>
     </Container>
   );
 };
