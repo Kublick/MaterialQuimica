@@ -5,8 +5,6 @@ import {
   ListItemIcon,
   ListItemText,
   Divider,
-  MenuItem,
-  Button,
 } from '@material-ui/core';
 import { Person, Create } from '@material-ui/icons';
 import { withRouter, Link } from 'react-router-dom';
@@ -31,15 +29,15 @@ const categories = [
     children: [
       { id: 'Registro de Orden', icon: <Person />, link: '/orders' },
       { id: 'Consulta', icon: <Person />, link: '/layout' },
-      { id: 'Registro de Resultados', icon: <Person /> },
+      { id: 'Registro de Resultados', icon: <Person />, link: '/orders' },
     ],
   },
   {
     id: 'Doctores',
     children: [
-      { id: 'Registrar', icon: <Person /> },
-      { id: 'Actualizar', icon: <Person /> },
-      { id: 'Reporte', icon: <Person /> },
+      { id: 'Registrar', icon: <Person />, link: '/doctors' },
+      { id: 'Actualizar', icon: <Person />, link: '/doctors' },
+      { id: 'Reporte', icon: <Person />, link: '/doctors' },
     ],
   },
 ];

@@ -95,6 +95,7 @@ const AuthState = (props) => {
         alerts: state.alerts,
         addEmployee,
         employeeLogin,
+        authEmployee,
       }}
     >
       {props.children}

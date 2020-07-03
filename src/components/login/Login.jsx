@@ -29,6 +29,11 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
     background: '#1B72E7',
   },
+  error: {
+    backgroundColor: 'red',
+    textAlign: 'center',
+    color: 'white',
+  },
 }));
 
 const schema = yup.object().shape({
@@ -46,7 +51,7 @@ const Login = (props) => {
   const classes = useStyles();
 
   const alertsContext = useContext(AlertsContext);
-  const { alert, showAlert } = alertsContext;
+  const { showAlert } = alertsContext;
 
   const authContext = useContext(AuthContext);
   const { alerts, authenticated, employeeLogin } = authContext;
@@ -54,6 +59,9 @@ const Login = (props) => {
   useEffect(() => {
     if (authenticated) {
       props.history.push('/layout/');
+    }
+    if (alerts) {
+      showAlert();
     }
   }, [alerts, authenticated, props.history]);
 
@@ -65,7 +73,7 @@ const Login = (props) => {
   const onSubmit = (data) => {
     employeeLogin({ name: data.name, password: data.password });
   };
-
+  //TODO Fix error messages from server ; rework Alert to be only on Auth
   return (
     <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
@@ -108,7 +116,7 @@ const Login = (props) => {
 
           {alerts ? (
             <Typography variant="h5" className={classes.error} variant="h5">
-              El Empleado no existe
+              {alerts}
             </Typography>
           ) : null}
 

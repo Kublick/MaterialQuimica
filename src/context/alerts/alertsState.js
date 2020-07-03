@@ -19,7 +19,7 @@ const AlertsState = (props) => {
     });
     setTimeout(() => {
       dispatch({ type: REMOVE_ALERT });
-    }, 5000);
+    }, 4000);
   };
 
   return (

@@ -8,6 +8,12 @@ import Users from '../components/UserComponents/UserForm';
 import AddEmployee from '../components/login/NewEmployee';
 import AuthState from '../context/authentication/authState';
 import AlertsState from '../context/alerts/alertsState';
+import tokenAuth from '../config/tokenAuth';
+
+const token = localStorage.getItem('token');
+if (token) {
+  tokenAuth(token);
+}
 
 export default function App() {
   return (
