@@ -1,15 +1,23 @@
-import React from 'react';
-import { TextField, Grid, Typography, Button } from '@material-ui/core';
+import React, { useState } from 'react';
+import {
+  TextField,
+  Grid,
+  Typography,
+  Button,
+  Radio,
+  FormControlLabel,
+  RadioGroup,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers';
 import * as yup from 'yup';
 
 const schema = yup.object().shape({
-  name: yup.string().min(3, 'minimo 3 caracteres').required('campo requerido'),
+  name: yup.string().min(3, 'mínimo 3 caracteres').required('campo requerido'),
   lastName: yup
     .string()
-    .min(3, 'minimo 3 caracteres')
+    .min(3, 'mínimo 3 caracteres')
     .required('campo requerido'),
   email: yup
     .string()
@@ -38,8 +46,10 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   paper: {
+    display: 'flex',
     padding: theme.spacing(2),
     textAlign: 'center',
+    flexDirection: 'column',
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -49,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'red',
     color: 'white',
     margin: '8px auto 0 auto',
-    width: '70%',
+    width: '50%',
   },
   title: {
     margin: '16px 32px',
@@ -57,22 +67,35 @@ const useStyles = makeStyles((theme) => ({
   birthDate: {
     margin: '16px 32px',
   },
+  radios: {
+    width: 'auto',
+  },
 }));
 
 export default function UserForm() {
+  // MUI
   const classes = useStyles();
 
-  const { register, handleSubmit, errors } = useForm({
+  // Hook Form States
+  const { register, handleSubmit, errors, control } = useForm({
     defaultValues: {
       name: '',
       lastName: '',
       email: '',
       emailB: '',
+      RadioGroup: '',
     },
     resolver: yupResolver(schema),
     mode: 'onBlur',
   });
+
   const onSubmit = (data) => console.log(data);
+
+  // Radios State
+  const [selectedValue, setSelectedValue] = useState('');
+  const handleChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -81,7 +104,7 @@ export default function UserForm() {
           Registro de Pacientes
         </Typography>
         <Grid container>
-          <Grid item sm={3}>
+          <Grid item sm={6}>
             <TextField
               label="Nombre"
               type="text"
@@ -95,7 +118,25 @@ export default function UserForm() {
             </Typography>
           </Grid>
 
-          <Grid item sm={3}>
+          <Grid item sm={6}>
+            <TextField
+              label="email"
+              type="text"
+              variant="outlined"
+              name="email"
+              error={!!errors.email}
+              inputRef={register}
+            />
+            <Typography
+              variant="subtitle2"
+              className={classes.error}
+              style={{ width: '85%' }}
+            >
+              {errors.email?.message}
+            </Typography>
+          </Grid>
+
+          <Grid item sm={6}>
             <TextField
               className={classes.inputField}
               label="Apellidos"
@@ -109,26 +150,8 @@ export default function UserForm() {
               {errors.lastName?.message}
             </Typography>
           </Grid>
-          <Grid item sm={3}>
-            <TextField
-              label="email"
-              type="text"
-              variant="outlined"
-              name="email"
-              error={!!errors.email}
-              inputRef={register}
-              style={{ width: '85%' }}
-            />
-            <Typography
-              variant="subtitle2"
-              className={classes.error}
-              style={{ width: '85%' }}
-            >
-              {errors.email?.message}
-            </Typography>
-          </Grid>
 
-          <Grid item sm={3}>
+          <Grid item sm={6}>
             <TextField
               label="email opcional"
               type="text"
@@ -136,33 +159,56 @@ export default function UserForm() {
               name="emailB"
               inputRef={register}
               error={!!errors.emailB}
-              style={{ width: '85%' }}
             />
-            <Typography
-              variant="subtitle2"
-              className={classes.error}
-              style={{ width: '85%' }}
-            >
+            <Typography variant="subtitle2" className={classes.error}>
               {errors.emailB?.message}
             </Typography>
           </Grid>
-          <Grid item sm={3}>
+
+          <Grid item sm={6}>
             <TextField
               id="date"
+              required
               label="Fecha Nacimiento"
               type="date"
               name="birthdate"
               inputRef={register}
-              // className={classes.birthDate}
+              className={classes.birthDate}
               InputLabelProps={{
                 shrink: true,
               }}
             />
           </Grid>
 
-          <Grid item sm={3}>
+          <div className={classes.radios}>
+            <Typography color="primary" variant="h6">
+              Genero
+            </Typography>
+            <section>
+              <Controller
+                as={
+                  <RadioGroup aria-label="gender">
+                    <FormControlLabel
+                      value="mujer"
+                      control={<Radio />}
+                      label="Mujer"
+                    />
+                    <FormControlLabel
+                      value="hombre"
+                      control={<Radio />}
+                      label="Hombre"
+                    />
+                  </RadioGroup>
+                }
+                name="RadioGroup"
+                control={control}
+              />
+            </section>
+          </div>
+
+          <Grid item sm={6}>
             <TextField
-              label="email opcional"
+              label="Telefono"
               type="text"
               variant="outlined"
               name="phone"
@@ -170,7 +216,21 @@ export default function UserForm() {
               error={!!errors.phone}
             />
             <Typography variant="subtitle2" className={classes.error}>
-              {errors.emailB?.message}
+              {errors.phone?.message}
+            </Typography>
+          </Grid>
+
+          <Grid item sm={6}>
+            <TextField
+              label="Telefono Opcional"
+              type="text"
+              variant="outlined"
+              name="phoneB"
+              inputRef={register}
+              error={!!errors.phoneB}
+            />
+            <Typography variant="subtitle2" className={classes.error}>
+              {errors.phoneB?.message}
             </Typography>
           </Grid>
         </Grid>

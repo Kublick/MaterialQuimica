@@ -88,7 +88,10 @@ const Login = (props) => {
     if (authenticated) {
       props.history.push('/layout/');
     }
-  }, [authenticated, props.history]);
+    if (alerts) {
+      showAlert(alerts);
+    }
+  }, [alerts, authenticated, props.history]);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -172,11 +175,11 @@ const Login = (props) => {
           >
             generar
           </Button>
-          {alert ? (
+          {/* {alert ? (
             <Typography variant="h5" className={classes.error} variant="h5">
-              El Empleado ya existe
+              {alerts}
             </Typography>
-          ) : null}
+          ) : null} */}
         </form>
       </div>
     </Container>

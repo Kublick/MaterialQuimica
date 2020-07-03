@@ -26,6 +26,7 @@ export const Navbar = () => {
 
   useEffect(() => {
     authEmployee();
+    // eslint-disable-next-line
   }, []);
 
   const classes = useStyles();

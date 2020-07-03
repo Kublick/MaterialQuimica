@@ -63,6 +63,7 @@ const Login = (props) => {
     if (alerts) {
       showAlert();
     }
+    // eslint-disable-next-line
   }, [alerts, authenticated, props.history]);
 
   const { register, handleSubmit, errors } = useForm({

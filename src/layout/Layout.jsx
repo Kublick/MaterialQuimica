@@ -16,12 +16,10 @@ const styles = makeStyles((theme) => ({
   },
   toolbar: theme.mixins.toolbar,
   content: {
-    flexGrow: 1,
-    padding: theme.spacing(2),
-  },
-  content: {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
+    flexGrow: 1,
+    padding: theme.spacing(2),
   },
 }));
 
