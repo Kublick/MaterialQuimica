@@ -12,7 +12,6 @@ export default (state, action) => {
     case EMPLOYEE_LOGIN:
     case ADD_EMPLOYEE:
       localStorage.setItem('token', action.payload.token);
-      console.log('token seteado');
       return {
         ...state,
         authenticated: true,

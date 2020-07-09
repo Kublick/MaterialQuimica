@@ -115,11 +115,11 @@ const Login = (props) => {
             {errors.password?.message}
           </Typography>
 
-          {alerts ? (
+          {/* {alerts ? (
             <Typography variant="h5" className={classes.error} variant="h5">
               {alerts}
             </Typography>
-          ) : null}
+          ) : null} */}
 
           <Button
             type="submit"

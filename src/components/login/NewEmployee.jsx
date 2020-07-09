@@ -62,10 +62,10 @@ const schema = yup.object().shape({
 const Login = (props) => {
   // take values from
   const alertsContext = useContext(AlertsContext);
-  const { alert, showAlert } = alertsContext;
+  const { showAlert } = alertsContext;
 
   const authContext = useContext(AuthContext);
-  const { serverError, authenticated, addEmployee } = authContext;
+  const { authenticated, addEmployee } = authContext;
 
   const classes = useStyles();
 
@@ -79,19 +79,18 @@ const Login = (props) => {
   });
 
   const onSubmit = (data) => {
-    //  showAlert(true);
-
+    showAlert(true);
     addEmployee(data);
   };
 
-  // useEffect(() => {
-  //   if (authenticated) {
-  //     props.history.push('/users');
-  //   }
-  //   if (serverError) {
-  //     showAlert(serverError);
-  //   }
-  // }, [serverError, authenticated, props.history]);
+  useEffect(() => {
+    if (authenticated) {
+      props.history.push('/users');
+    }
+    // if (serverError) {
+    //   showAlert(serverError);
+    // }
+  }, [authenticated, props.history]);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -172,11 +171,11 @@ const Login = (props) => {
           >
             generar
           </Button>
-          {serverError ? (
+          {/* {alert ? (
             <Typography variant="h5" className={classes.error} variant="h5">
-              {serverError}
+              {alerts}
             </Typography>
-          ) : null}
+          ) : null} */}
         </form>
       </div>
     </Container>

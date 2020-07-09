@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   TextField,
   Grid,
@@ -8,8 +8,6 @@ import {
   FormControlLabel,
   RadioGroup,
   Container,
-  Divider,
-  Paper,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useForm, Controller } from 'react-hook-form';
@@ -63,12 +61,7 @@ export default function UserForm() {
   });
 
   const onSubmit = (data) => console.log(data);
-
-  // Radios State
-  const [selectedValue, setSelectedValue] = useState('');
-  const handleChange = (event) => {
-    setSelectedValue(event.target.value);
-  };
+  console.log('entered Register');
 
   return (
     <div className={classes.root}>

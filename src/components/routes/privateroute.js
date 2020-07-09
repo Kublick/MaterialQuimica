@@ -7,8 +7,10 @@ const PrivateRoute = ({ components: Component, ...props }) => {
   const { authenticated, authEmployee } = authContext;
 
   useEffect(() => {
-    authEmployee();
-  }, []);
+    if (!authenticated) {
+      authEmployee();
+    }
+  }, [authEmployee, authenticated]);
 
   return (
     <Route

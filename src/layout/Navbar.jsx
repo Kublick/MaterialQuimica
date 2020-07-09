@@ -31,9 +31,6 @@ export const Navbar = (props) => {
   }, []);
 
   let history = useHistory();
-  const signOut = () => {
-    employeeSignOut();
-  };
 
   const classes = useStyles();
   return (
@@ -48,7 +45,6 @@ export const Navbar = (props) => {
           className={classes.menuButton}
           onClick={() => {
             employeeSignOut();
-            console.log('clicked signout');
             history.push('/');
           }}
         >

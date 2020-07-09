@@ -23,9 +23,10 @@ export default function App() {
           <ThemeProvider theme={theme}>
             <Switch>
               <Route path="/" exact component={Login} />
+
               <Route path="/addEmployee" exact component={AddEmployee} />
               <PrivateRoute exact component={Layout} />
-              <PrivateRoute path="/users" exact component={Users} />
+              <PrivateRoute path="/users" component={Users} />
             </Switch>
           </ThemeProvider>
         </Router>
