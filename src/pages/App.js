@@ -9,12 +9,12 @@ import AddEmployee from '../components/login/NewEmployee';
 import AuthState from '../context/authentication/authState';
 import AlertsState from '../context/alerts/alertsState';
 import tokenAuth from '../config/tokenAuth';
+import PrivateRoute from '../components/routes/privateroute';
 
 const token = localStorage.getItem('token');
 if (token) {
   tokenAuth(token);
 }
-
 export default function App() {
   return (
     <AuthState>
@@ -22,10 +22,10 @@ export default function App() {
         <Router>
           <ThemeProvider theme={theme}>
             <Switch>
-              <Route path="/login" exact component={Login} />
-              <Route path="/layout" exact component={Layout} />
+              <Route path="/" exact component={Login} />
               <Route path="/addEmployee" exact component={AddEmployee} />
-              <Route path="/users" exact component={Users} />
+              <PrivateRoute exact component={Layout} />
+              <PrivateRoute path="/users" exact component={Users} />
             </Switch>
           </ThemeProvider>
         </Router>

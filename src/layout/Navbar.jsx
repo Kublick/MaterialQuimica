@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import AuthContext from '../context/authentication/authContext';
@@ -20,14 +21,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Navbar = () => {
+export const Navbar = (props) => {
   const authContext = useContext(AuthContext);
-  const { employee, authEmployee } = authContext;
+  const { employee, authEmployee, employeeSignOut } = authContext;
 
   useEffect(() => {
     authEmployee();
     // eslint-disable-next-line
   }, []);
+
+  let history = useHistory();
+  const signOut = () => {
+    employeeSignOut();
+  };
 
   const classes = useStyles();
   return (
@@ -40,6 +46,11 @@ export const Navbar = () => {
           color="inherit"
           aria-label="userLogged"
           className={classes.menuButton}
+          onClick={() => {
+            employeeSignOut();
+            console.log('clicked signout');
+            history.push('/');
+          }}
         >
           {employee ? (
             <Typography variant="h6">Hola {employee.name}</Typography>

@@ -7,7 +7,7 @@ import {
   Divider,
 } from '@material-ui/core';
 import { Person, Create } from '@material-ui/icons';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
 
 const color = 'rgba(255, 255, 255, 0.7)';
@@ -104,6 +104,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MenuList = (props) => {
   const classes = useStyles();
+
   return (
     <div>
       <List className={classes.list}>
@@ -123,10 +124,11 @@ const MenuList = (props) => {
             </ListItem>
             {children.map(({ id: childId, icon, link }) => (
               <ListItem
+                onClick={(event) => {
+                  event.preventDefault();
+                  props.history.push(link);
+                }}
                 button
-                component={Link}
-                to={link}
-                dense
                 key={childId}
                 className={classes.item}
               >

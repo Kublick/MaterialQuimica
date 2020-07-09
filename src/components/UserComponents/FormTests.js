@@ -103,7 +103,7 @@ export default function UserForm() {
         <Typography color="primary" className={classes.title} variant="h4">
           Registro de Pacientes
         </Typography>
-        <Grid container>
+       
           <Grid item sm={6}>
             <TextField
               label="Nombre"
@@ -233,7 +233,7 @@ export default function UserForm() {
               {errors.phoneB?.message}
             </Typography>
           </Grid>
-        </Grid>
+    
 
         <Button type="submit" color="primary">
           Submit

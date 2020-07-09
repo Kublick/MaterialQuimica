@@ -65,7 +65,7 @@ const Login = (props) => {
   const { alert, showAlert } = alertsContext;
 
   const authContext = useContext(AuthContext);
-  const { alerts, authenticated, addEmployee } = authContext;
+  const { serverError, authenticated, addEmployee } = authContext;
 
   const classes = useStyles();
 
@@ -84,14 +84,14 @@ const Login = (props) => {
     addEmployee(data);
   };
 
-  useEffect(() => {
-    if (authenticated) {
-      props.history.push('/layout/');
-    }
-    if (alerts) {
-      showAlert(alerts);
-    }
-  }, [alerts, authenticated, props.history]);
+  // useEffect(() => {
+  //   if (authenticated) {
+  //     props.history.push('/users');
+  //   }
+  //   if (serverError) {
+  //     showAlert(serverError);
+  //   }
+  // }, [serverError, authenticated, props.history]);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -112,10 +112,8 @@ const Login = (props) => {
             inputRef={register({ required: true, min: 3 })}
             error={!!errors.user}
             autoFocus
+            helperText={errors.name?.message}
           />
-          <Typography variant="h6" className={classes.error}>
-            {errors.name?.message}
-          </Typography>
 
           <TextField
             variant="outlined"
@@ -128,10 +126,9 @@ const Login = (props) => {
             error={!!errors.email}
             inputRef={register({ required: true })}
             autoComplete="current email"
+            helperText={errors.email?.message}
           />
-          <Typography variant="h6" className={classes.error}>
-            {errors.email?.message}
-          </Typography>
+
           <TextField
             variant="outlined"
             margin="normal"
@@ -141,12 +138,11 @@ const Login = (props) => {
             type="password"
             id="password"
             error={!!errors.password}
-            inputRef={register({ required: true })}
+            inputRef={register}
             autoComplete="current password"
+            helperText={errors.email?.message}
           />
-          <Typography variant="h6" className={classes.error}>
-            {errors.password?.message}
-          </Typography>
+
           <section>
             <InputLabel id="role" className={classes.select}>
               Rol
@@ -163,6 +159,7 @@ const Login = (props) => {
               name="role"
               control={control}
               error={!!errors.role}
+              helperText={errors.role?.message}
             />
           </section>
 
@@ -175,11 +172,11 @@ const Login = (props) => {
           >
             generar
           </Button>
-          {/* {alert ? (
+          {serverError ? (
             <Typography variant="h5" className={classes.error} variant="h5">
-              {alerts}
+              {serverError}
             </Typography>
-          ) : null} */}
+          ) : null}
         </form>
       </div>
     </Container>

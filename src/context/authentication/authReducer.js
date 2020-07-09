@@ -12,6 +12,7 @@ export default (state, action) => {
     case EMPLOYEE_LOGIN:
     case ADD_EMPLOYEE:
       localStorage.setItem('token', action.payload.token);
+      console.log('token seteado');
       return {
         ...state,
         authenticated: true,
@@ -19,16 +20,25 @@ export default (state, action) => {
       };
     case EMPLOYEELOGIN_ERROR:
     case EMPLOYEE_ERROR:
-      localStorage.removeItem('token');
+      //   localStorage.removeItem('token');
       return {
         ...state,
-        token: null,
         alerts: action.payload,
+        authenticated: false,
       };
     case EMPLOYEELOGIN_SUCCESS:
       return {
         ...state,
+        authenticated: true,
         employee: action.payload,
+      };
+    case EMPLOYEE_ENDSESION:
+      return {
+        ...state,
+        token: null,
+        alerts: null,
+        employee: null,
+        authenticated: false,
       };
 
     default:

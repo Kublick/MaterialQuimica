@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+
 import AuthContext from './authContext';
 import authReducer from './authReducer';
 import tokenAuth from '../../config/tokenAuth';
@@ -51,7 +52,7 @@ const AuthState = (props) => {
 
     try {
       const res = await axiosClient.get('/api/auth');
-
+      console.log(res);
       dispatch({
         type: EMPLOYEELOGIN_SUCCESS,
         payload: res.data.employee,
@@ -86,6 +87,12 @@ const AuthState = (props) => {
     }
   };
 
+  const employeeSignOut = () => {
+    dispatch({
+      type: EMPLOYEE_ENDSESION,
+    });
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -96,6 +103,7 @@ const AuthState = (props) => {
         addEmployee,
         employeeLogin,
         authEmployee,
+        employeeSignOut,
       }}
     >
       {props.children}

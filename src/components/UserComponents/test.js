@@ -29,6 +29,21 @@ const schema = yup.object().shape({
   emailB: yup.string().email('email valido requerido'),
 });
 
+// name: Yup.string()
+// .required("Required")
+// .min(3, "Name must be greater than 3 characters")
+// .max(10, "Name must be shorter than 10 characters"),
+// password: Yup.string()
+// .min(6, "Password should be longer than 6 characters")
+// .required("Required"),
+// email: Yup.string()
+// .required("Required")
+// .matches(/[^@]*@[^@]*/, 'Please enter valid email id'),
+// mobile: Yup.string()
+// // .required("Required")
+// .matches(/^([6-9]\d{9})?$/, 'Please enter valid 10 digit mobile number'),
+// gender: Yup.string().required('Required field')
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
