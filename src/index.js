@@ -2,14 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './theme/theme';
-
+import { BrowserRouter } from 'react-router-dom';
 import App from './pages/App';
+import AuthState from './context/authentication/authState';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <ThemeProvider theme={theme}>
-    <App />
-  </ThemeProvider>,
+  <BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
+  </BrowserRouter>,
   document.getElementById('root')
 );
 

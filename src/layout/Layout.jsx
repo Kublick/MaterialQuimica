@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core';
 import Navbar from './Navbar';
 import Drawer from './Drawer';
+import Form from '../components/UserComponents/UserForm';
 
 const drawerWidth = 240;
 
@@ -29,7 +30,7 @@ const Layout = (props) => {
       <Drawer />
       <Navbar className={classes.appBar} />
       <main className={classes.content}>
-        <div className={classes.toolbar}></div>
+        <div className={classes.toolbar} />
       </main>
     </div>
   );
