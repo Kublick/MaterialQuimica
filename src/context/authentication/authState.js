@@ -16,7 +16,7 @@ import axiosClient from '../../config/axios';
 const AuthState = (props) => {
   const initialState = {
     token: localStorage.getItem('token'),
-    authenticated: null,
+    authenticated: false,
     employee: null,
     alerts: null,
   };

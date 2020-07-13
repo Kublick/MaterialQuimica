@@ -19,7 +19,7 @@ export default (state, action) => {
       };
     case EMPLOYEELOGIN_ERROR:
     case EMPLOYEE_ERROR:
-      //   localStorage.removeItem('token');
+      localStorage.removeItem('token');
       return {
         ...state,
         alerts: action.payload,

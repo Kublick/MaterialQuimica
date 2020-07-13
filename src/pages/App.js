@@ -1,5 +1,10 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../theme/theme';
 import Layout from '../layout/Layout';
@@ -10,11 +15,13 @@ import AuthState from '../context/authentication/authState';
 import AlertsState from '../context/alerts/alertsState';
 import tokenAuth from '../config/tokenAuth';
 import PrivateRoute from '../components/routes/privateroute';
+import noAuth from '../components/helpers/noauth';
 
 const token = localStorage.getItem('token');
 if (token) {
   tokenAuth(token);
 }
+
 export default function App() {
   return (
     <AuthState>
@@ -23,10 +30,10 @@ export default function App() {
           <ThemeProvider theme={theme}>
             <Switch>
               <Route path="/" exact component={Login} />
-
               <Route path="/addEmployee" exact component={AddEmployee} />
-              <PrivateRoute exact component={Layout} />
+              <Route path="/noAuth" exact component={noAuth} />
               <PrivateRoute path="/users" component={Users} />
+              <Redirect to="/noauth" component={noAuth} />
             </Switch>
           </ThemeProvider>
         </Router>

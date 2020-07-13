@@ -30,7 +30,6 @@ const schema = yup.object().shape({
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    marginLeft: '240px',
   },
   paper: {
     padding: theme.spacing(2),

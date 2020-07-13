@@ -10,11 +10,13 @@ const PrivateRoute = ({ components: Component, ...props }) => {
     if (!authenticated) {
       authEmployee();
     }
-  }, [authEmployee, authenticated]);
+  }, []);
+
+  const { component, ...routeProps } = props;
 
   return (
     <Route
-      {...props}
+      {...routeProps}
       render={(props) =>
         !authenticated ? <Redirect to="/" /> : <Component {...props} />
       }
