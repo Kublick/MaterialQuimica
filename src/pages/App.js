@@ -20,12 +20,13 @@ export default function App() {
     <AuthState>
       <AlertsState>
         <Router>
+          <Layout />
           <ThemeProvider theme={theme}>
             <Switch>
               <Route path="/" exact component={Login} />
 
               <Route path="/addEmployee" exact component={AddEmployee} />
-              <PrivateRoute exact component={Layout} />
+
               <PrivateRoute path="/users" component={Users} />
             </Switch>
           </ThemeProvider>
