@@ -35,6 +35,7 @@ const userSchema = new Schema({
   taxId: String,
   address: String,
   city: String,
+  notes: String,
 });
 
 const User = mongoose.model('user', userSchema);

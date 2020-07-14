@@ -79,13 +79,13 @@ const Login = (props) => {
   });
 
   const onSubmit = (data) => {
-    showAlert(true);
+    //  showAlert(true);
     addEmployee(data);
   };
 
   useEffect(() => {
     if (authenticated) {
-      props.history.push('/users');
+      props.history.push('/layout');
     }
     // if (serverError) {
     //   showAlert(serverError);

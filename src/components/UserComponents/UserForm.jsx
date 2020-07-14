@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   TextField,
-  Grid,
   Typography,
   Button,
   Radio,
@@ -13,6 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers';
 import * as yup from 'yup';
+import UserContext from '../../context/userContext/userContext';
 
 const schema = yup.object().shape({
   name: yup.string().min(3, 'mínimo 3 caracteres').required('campo requerido'),
@@ -30,22 +30,38 @@ const schema = yup.object().shape({
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    marginLeft: '240px',
   },
   paper: {
     padding: theme.spacing(2),
-    textAlign: 'center',
+    maxWidth: '860px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
     color: theme.palette.text.secondary,
   },
   fields: {
-    margin: theme.spacing(1),
+    // '& > *': {
+    //   width: '26ch',
+    // },
+    margin: theme.spacing(2),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
     background: '#1B72E7',
+    flex: 1,
   },
 }));
 
 export default function UserForm() {
+  const userContext = useContext(UserContext);
+  const { addUser } = userContext;
+
   const classes = useStyles();
   const { register, handleSubmit, errors, control } = useForm({
     defaultValues: {
@@ -53,167 +69,156 @@ export default function UserForm() {
       lastName: '',
       email: '',
       emailB: '',
-      RadioGroup: '',
+      gender: '',
+      phone: '',
+      phoneB: '',
+      notes: '',
     },
     resolver: yupResolver(schema),
     mode: 'onBlur',
   });
 
-  const onSubmit = (data) => console.log(data);
-  console.log('entered Register');
+  const onSubmit = (data) => {
+    console.log(data);
+    addUser(data);
+  };
 
   return (
     <div className={classes.root}>
-      <Container>
-        <Grid
-          container
-          spacing={2}
-          justify="flex-start"
-          alignItems="flex-start"
-        >
-          <Grid item lg={12}>
-            <Typography variant="h4" color="primary">
-              Registro de Pacientes
+      <Container className={classes.paper}>
+        <Typography variant="h4" color="primary">
+          Registro de Pacientes
+        </Typography>
+
+        <form className={classes.fields} onSubmit={handleSubmit(onSubmit)}>
+          <TextField
+            label="Nombre"
+            type="text"
+            variant="outlined"
+            name="name"
+            className={classes.fields}
+            error={!!errors.name}
+            inputRef={register}
+            helperText={errors.name?.message}
+            size="medium"
+          />
+
+          <TextField
+            label="Apellidos"
+            type="text"
+            variant="outlined"
+            name="lastName"
+            className={classes.fields}
+            error={!!errors.lastName}
+            inputRef={register}
+            helperText={errors.lastName?.message}
+          />
+
+          <TextField
+            label="Telefono"
+            type="text"
+            variant="outlined"
+            name="phone"
+            inputRef={register}
+            className={classes.fields}
+            error={!!errors.phone}
+            helperText={errors.phone?.message}
+          />
+
+          <TextField
+            label="Telefono Opcional"
+            type="text"
+            variant="outlined"
+            name="phoneB"
+            inputRef={register}
+            className={classes.fields}
+            error={!!errors.phoneB}
+          />
+
+          <TextField
+            label="email"
+            type="text"
+            variant="outlined"
+            name="email"
+            error={!!errors.email}
+            className={classes.fields}
+            inputRef={register}
+            helperText={errors.email?.message}
+          />
+
+          <TextField
+            label="email opcional"
+            type="text"
+            variant="outlined"
+            name="emailB"
+            className={classes.fields}
+            inputRef={register}
+            error={!!errors.emailB}
+            helperText={errors.emailB?.message}
+          />
+
+          <TextField
+            id="date"
+            required
+            label="Fecha Nacimiento"
+            type="date"
+            name="birthdate"
+            inputRef={register}
+            className={classes.fields}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+
+          <div>
+            <Typography color="primary" variant="h6">
+              Genero
             </Typography>
-          </Grid>
+            <br />
+            <section>
+              <Controller
+                as={
+                  <RadioGroup aria-label="gender">
+                    <FormControlLabel
+                      value="mujer"
+                      control={<Radio />}
+                      label="Mujer"
+                      className={classes.fields}
+                    />
+                    <FormControlLabel
+                      value="hombre"
+                      control={<Radio />}
+                      label="Hombre"
+                      className={classes.fields}
+                    />
+                  </RadioGroup>
+                }
+                name="gender"
+                control={control}
+              />
+            </section>
+          </div>
+          <br />
+          <TextField
+            id="notes"
+            label="Comentarios / Notas"
+            name="notes"
+            multiline
+            rows={4}
+            variant="outlined"
+            inputRef={register}
+            fullWidth
+          />
 
-          <form className={classes.fields} onSubmit={handleSubmit(onSubmit)}>
-            <Grid item xs={12}>
-              <TextField
-                label="Nombre"
-                type="text"
-                variant="outlined"
-                name="name"
-                className={classes.fields}
-                error={!!errors.name}
-                inputRef={register}
-                helperText={errors.name?.message}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Apellidos"
-                type="text"
-                variant="outlined"
-                name="lastName"
-                className={classes.fields}
-                error={!!errors.lastName}
-                inputRef={register}
-                helperText={errors.lastName?.message}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Telefono"
-                type="text"
-                variant="outlined"
-                name="phone"
-                inputRef={register}
-                className={classes.fields}
-                error={!!errors.phone}
-                helperText={errors.phone?.message}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Telefono Opcional"
-                type="text"
-                variant="outlined"
-                name="phoneB"
-                inputRef={register}
-                className={classes.fields}
-                error={!!errors.phoneB}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="email"
-                type="text"
-                variant="outlined"
-                name="email"
-                error={!!errors.email}
-                className={classes.fields}
-                inputRef={register}
-                helperText={errors.email?.message}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="email opcional"
-                type="text"
-                variant="outlined"
-                name="emailB"
-                className={classes.fields}
-                inputRef={register}
-                error={!!errors.emailB}
-                helperText={errors.emailB?.message}
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <TextField
-                id="date"
-                required
-                label="Fecha Nacimiento"
-                type="date"
-                name="birthdate"
-                inputRef={register}
-                className={classes.fields}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
-              <div>
-                <Typography color="primary" variant="h6">
-                  Genero
-                </Typography>
-
-                <section>
-                  <Controller
-                    as={
-                      <RadioGroup aria-label="gender">
-                        <FormControlLabel
-                          value="mujer"
-                          control={<Radio />}
-                          label="Mujer"
-                          className={classes.fields}
-                        />
-                        <FormControlLabel
-                          value="hombre"
-                          control={<Radio />}
-                          label="Hombre"
-                          className={classes.fields}
-                        />
-                      </RadioGroup>
-                    }
-                    name="RadioGroup"
-                    control={control}
-                  />
-                </section>
-                <TextField
-                  id="notes"
-                  label="Comentarios / Notas"
-                  name="notes"
-                  multiline
-                  variant="outlined"
-                  inputRef={register}
-                />
-              </div>
-            </Grid>
-            <Grid container alignContent="center">
-              <Grid item xs={12}>
-                <Button
-                  type="submit"
-                  color="primary"
-                  className="submit"
-                  variant="contained"
-                >
-                  Registrar
-                </Button>
-              </Grid>
-            </Grid>
-          </form>
-        </Grid>
+          <Button
+            type="submit"
+            color="primary"
+            variant="contained"
+            className={classes.submit}
+          >
+            Registrar
+          </Button>
+        </form>
       </Container>
     </div>
   );
