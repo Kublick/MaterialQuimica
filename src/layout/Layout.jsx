@@ -17,7 +17,7 @@ const styles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
   content: {
     width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
+    marginLeft: '260px',
     padding: theme.spacing(2),
   },
 }));

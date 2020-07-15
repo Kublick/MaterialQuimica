@@ -14,6 +14,8 @@ import { yupResolver } from '@hookform/resolvers';
 import * as yup from 'yup';
 import UserContext from '../../context/userContext/userContext';
 
+const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
 const schema = yup.object().shape({
   name: yup.string().min(3, 'mínimo 3 caracteres').required('campo requerido'),
   lastName: yup
@@ -25,6 +27,7 @@ const schema = yup.object().shape({
     .email('email valido requerido')
     .required('campo requerido'),
   emailB: yup.string().email('email valido requerido'),
+  phone: yup.string().matches(phoneRegExp, 'Ingrese numero telefonico valido'),
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -42,9 +45,6 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
   fields: {
-    // '& > *': {
-    //   width: '26ch',
-    // },
     margin: theme.spacing(2),
     display: 'flex',
     alignItems: 'center',
@@ -55,6 +55,9 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
     background: '#1B72E7',
     flex: 1,
+  },
+  radios: {
+    textAlign: 'left',
   },
 }));
 
@@ -73,6 +76,7 @@ export default function UserForm() {
       phone: '',
       phoneB: '',
       notes: '',
+      address: '',
     },
     resolver: yupResolver(schema),
     mode: 'onBlur',
@@ -100,7 +104,6 @@ export default function UserForm() {
             error={!!errors.name}
             inputRef={register}
             helperText={errors.name?.message}
-            size="medium"
           />
 
           <TextField
@@ -126,16 +129,6 @@ export default function UserForm() {
           />
 
           <TextField
-            label="Telefono Opcional"
-            type="text"
-            variant="outlined"
-            name="phoneB"
-            inputRef={register}
-            className={classes.fields}
-            error={!!errors.phoneB}
-          />
-
-          <TextField
             label="email"
             type="text"
             variant="outlined"
@@ -147,31 +140,22 @@ export default function UserForm() {
           />
 
           <TextField
-            label="email opcional"
+            id="text"
+            label="Direccion"
             type="text"
+            name="address"
             variant="outlined"
-            name="emailB"
-            className={classes.fields}
-            inputRef={register}
-            error={!!errors.emailB}
-            helperText={errors.emailB?.message}
-          />
-
-          <TextField
-            id="date"
-            required
-            label="Fecha Nacimiento"
-            type="date"
-            name="birthdate"
             inputRef={register}
             className={classes.fields}
-            InputLabelProps={{
-              shrink: true,
-            }}
+            fullWidth
           />
 
           <div>
-            <Typography color="primary" variant="h6">
+            <Typography
+              color="primary"
+              variant="h6"
+              style={{ textAlign: 'center' }}
+            >
               Genero
             </Typography>
             <br />
@@ -183,13 +167,13 @@ export default function UserForm() {
                       value="mujer"
                       control={<Radio />}
                       label="Mujer"
-                      className={classes.fields}
+                      className={classes.radios}
                     />
                     <FormControlLabel
                       value="hombre"
                       control={<Radio />}
                       label="Hombre"
-                      className={classes.fields}
+                      className={classes.radios}
                     />
                   </RadioGroup>
                 }
@@ -198,7 +182,22 @@ export default function UserForm() {
               />
             </section>
           </div>
-          <br />
+
+          <TextField
+            id="date"
+            required
+            variant="outlined"
+            label="Fecha Nacimiento"
+            type="date"
+            name="birthdate"
+            style={{ justifyContent: 'unset' }}
+            inputRef={register}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            margin="none"
+          />
+
           <TextField
             id="notes"
             label="Comentarios / Notas"

@@ -39,3 +39,29 @@ exports.createUser = async (req, res) => {
     res.status(500).send('Hubo un Error');
   }
 };
+
+exports.getUser = async (req, res) => {
+  try {
+    const user = await User.find();
+    res.json({ user });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Hubo un Error');
+  }
+};
+
+exports.getUserPagination = async (req, res) => {
+  try {
+    let perPage = Number(req.query.perPage);
+    let page = Number(req.query.page);
+
+    console.log('perPage', perPage);
+    console.log('page', page);
+    const user = await User.find().limit(perPage).skip(page);
+
+    res.json({ user });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Hubo un Error');
+  }
+};

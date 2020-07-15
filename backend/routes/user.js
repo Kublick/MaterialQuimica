@@ -19,4 +19,8 @@ router.post(
   userController.createUser
 );
 
+router.get('/', userController.getUser);
+
+router.get('/paginate', userController.getUserPagination);
+
 module.exports = router;

@@ -5,6 +5,7 @@ import theme from '../theme/theme';
 import Layout from '../layout/Layout';
 import Login from '../components/login/Login';
 import Users from '../components/UserComponents/UserForm';
+import UserTable from '../components/UserComponents/UserTable';
 import AddEmployee from '../components/login/NewEmployee';
 import AuthState from '../context/authentication/authState';
 import UserState from '../context/userContext/userState';
@@ -27,7 +28,8 @@ export default function App() {
               <Switch>
                 <Route path="/" exact component={Login} />
                 <Route path="/addEmployee" exact component={AddEmployee} />
-                <PrivateRoute path="/users" component={Users} />
+                <PrivateRoute path="/users" exact component={Users} />
+                <PrivateRoute path="/users/edit" exact component={UserTable} />
               </Switch>
             </ThemeProvider>
           </Router>

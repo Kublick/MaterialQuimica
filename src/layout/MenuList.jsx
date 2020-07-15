@@ -20,8 +20,8 @@ const categories = [
   {
     id: 'Pacientes',
     children: [
-      { id: 'Registrar', icon: <Person />, link: '/users' },
-      { id: 'Actualizar', icon: <Create />, link: '/usersUpdate' },
+      { id: 'Registro', icon: <Person />, link: '/users' },
+      { id: 'Busqueda', icon: <Create />, link: '/users/edit' },
     ],
   },
   {
