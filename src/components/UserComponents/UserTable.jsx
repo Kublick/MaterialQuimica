@@ -59,7 +59,7 @@ const UserTable = () => {
             { title: 'Email', field: 'email' },
             { title: 'Telefono', field: 'phone' },
             { title: 'Genero', field: 'gender' },
-            { title: 'Fecha Nacimiento', field: 'birthdate' },
+            { title: 'Fecha Nacimiento', field: 'birthDate' },
           ]}
           data={data}
         />

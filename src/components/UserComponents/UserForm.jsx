@@ -71,12 +71,10 @@ export default function UserForm() {
       name: '',
       lastName: '',
       email: '',
-      emailB: '',
-      gender: '',
       phone: '',
-      phoneB: '',
       notes: '',
       address: '',
+      birthDate: '',
     },
     resolver: yupResolver(schema),
     mode: 'onBlur',
@@ -189,7 +187,7 @@ export default function UserForm() {
             variant="outlined"
             label="Fecha Nacimiento"
             type="date"
-            name="birthdate"
+            name="birthDate"
             style={{ justifyContent: 'unset' }}
             inputRef={register}
             InputLabelProps={{
