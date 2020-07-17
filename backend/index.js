@@ -21,6 +21,7 @@ app.use(morgan('dev'));
 //Definir pagina principal
 app.use('/api/employees', require('./routes/employees'));
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/clientes', require('./routes/clientes'));
 app.use('/api/users', require('./routes/user'));
 //app.use('/api/usuarios', require('./routes/usuarios'));
 

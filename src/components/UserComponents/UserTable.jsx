@@ -24,7 +24,6 @@ const UserTable = () => {
   const fetchUsers = async (page) => {
     setLoading(true);
     const res = await axiosClient.get('http://localhost:4000/api/users');
-    console.log('hechame la data', res.data.user);
     const handlePageChange = (page) => {
       fetchUsers(page);
     };
@@ -37,10 +36,6 @@ const UserTable = () => {
     setTotalRows(res.data.user.length);
     setLoading(false);
   };
-
-  // const response = await axios.get(
-  //   `https://reqres.in/api/users?page=${page}&per_page=${perPage}&delay=1`,
-  // );
 
   useEffect(() => {
     fetchUsers(1);

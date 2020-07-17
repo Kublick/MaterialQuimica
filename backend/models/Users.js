@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
+  shortId: {
+    type: String,
+  },
   name: {
     type: String,
     required: true,
@@ -20,22 +23,24 @@ const userSchema = new Schema({
     type: String,
     trim: true,
   },
-  phoneB: String,
   email: {
     type: String,
     trim: true,
     required: true,
   },
-  emailB: String,
   orders: [],
   reference: { type: Schema.Types.ObjectId, ref: 'Orders' },
   gender: {
     type: String,
   },
-  taxId: String,
-  address: String,
-  city: String,
-  notes: String,
+  address: {
+    type: String,
+    trim: true,
+  },
+  notes: {
+    type: String,
+    trim: true,
+  },
 });
 
 const User = mongoose.model('user', userSchema);
