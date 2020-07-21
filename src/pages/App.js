@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../theme/theme';
-import Layout from '../layout/Layout';
+import Landing from '../layout/Landing';
 import Login from '../components/login/Login';
 import Users from '../components/UserComponents/UserForm';
 import UserTable from '../components/UserComponents/UserTable';
@@ -23,12 +23,12 @@ export default function App() {
       <AlertsState>
         <UserState>
           <Router>
-            <Layout />
             <ThemeProvider theme={theme}>
               <Switch>
                 <Route path="/" exact component={Login} />
                 <Route path="/addEmployee" exact component={AddEmployee} />
-                <PrivateRoute path="/users" exact component={Users} />
+                <PrivateRoute path="/landing/" exact component={Landing} />
+                <PrivateRoute path="/users/" exact component={Users} />
                 <PrivateRoute path="/users/edit" exact component={UserTable} />
               </Switch>
             </ThemeProvider>

@@ -59,7 +59,7 @@ const Login = (props) => {
 
   useEffect(() => {
     if (authenticated) {
-      props.history.push('/layout');
+      props.history.push('/users/');
     }
     if (alerts) {
       showAlert();

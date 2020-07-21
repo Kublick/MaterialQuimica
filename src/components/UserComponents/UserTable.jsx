@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import MaterialTable from 'material-table';
 import { Create } from '@material-ui/icons';
 import axiosClient from '../../config/axios';
+import Layout from '../../layout/Layout';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,22 +45,24 @@ const UserTable = () => {
   const classes = useStyles();
 
   return (
-    <Container>
-      <div className={classes.root}>
-        <MaterialTable
-          title="Remote Data Preview"
-          columns={[
-            { title: 'Apellidos', field: 'lastName' },
-            { title: 'Nombre', field: 'name' },
-            { title: 'Email', field: 'email' },
-            { title: 'Telefono', field: 'phone' },
-            { title: 'Genero', field: 'gender' },
-            { title: 'Fecha Nacimiento', field: 'birthDate' },
-          ]}
-          data={data}
-        />
-      </div>
-    </Container>
+    <Layout>
+      <Container>
+        <div className={classes.root}>
+          <MaterialTable
+            title="Remote Data Preview"
+            columns={[
+              { title: 'Apellidos', field: 'lastName' },
+              { title: 'Nombre', field: 'name' },
+              { title: 'Email', field: 'email' },
+              { title: 'Telefono', field: 'phone' },
+              { title: 'Genero', field: 'gender' },
+              { title: 'Fecha Nacimiento', field: 'birthDate' },
+            ]}
+            data={data}
+          />
+        </div>
+      </Container>
+    </Layout>
   );
 };
 

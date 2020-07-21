@@ -22,7 +22,7 @@ const styles = makeStyles((theme) => ({
   },
 }));
 
-const Layout = (props) => {
+const Layout = ({ children }) => {
   const classes = styles();
 
   return (
@@ -31,6 +31,7 @@ const Layout = (props) => {
       <Navbar className={classes.appBar} />
       <main className={classes.content}>
         <div className={classes.toolbar} />
+        {children}
       </main>
     </div>
   );

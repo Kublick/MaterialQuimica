@@ -13,6 +13,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers';
 import * as yup from 'yup';
 import UserContext from '../../context/userContext/userContext';
+import Layout from '../../layout/Layout';
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
@@ -31,33 +32,21 @@ const schema = yup.object().shape({
 });
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    marginLeft: '240px',
-  },
+  root: {},
   paper: {
     padding: theme.spacing(2),
     maxWidth: '860px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
     color: theme.palette.text.secondary,
   },
   fields: {
     margin: theme.spacing(2),
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap',
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
     background: '#1B72E7',
-    flex: 1,
   },
   radios: {
-    textAlign: 'left',
+    maxWidth: '230px',
   },
 }));
 
@@ -86,137 +75,151 @@ export default function UserForm() {
   };
 
   return (
-    <div className={classes.root}>
-      <Container className={classes.paper}>
-        <Typography variant="h4" color="primary">
-          Registro de Pacientes
-        </Typography>
+    <Layout>
+      <div className={classes.root}>
+        <Container className={classes.paper}>
+          <Typography variant="h4" color="primary">
+            Registro de Pacientes
+          </Typography>
 
-        <form className={classes.fields} onSubmit={handleSubmit(onSubmit)}>
-          <TextField
-            label="Nombre"
-            type="text"
-            variant="outlined"
-            name="name"
-            className={classes.fields}
-            error={!!errors.name}
-            inputRef={register}
-            helperText={errors.name?.message}
-          />
+          <form className={classes.fields} onSubmit={handleSubmit(onSubmit)}>
+            <TextField
+              label="Nombre"
+              type="text"
+              variant="outlined"
+              name="name"
+              className={classes.fields}
+              error={!!errors.name}
+              inputRef={register}
+              helperText={errors.name?.message}
+            />
 
-          <TextField
-            label="Apellidos"
-            type="text"
-            variant="outlined"
-            name="lastName"
-            className={classes.fields}
-            error={!!errors.lastName}
-            inputRef={register}
-            helperText={errors.lastName?.message}
-          />
+            <TextField
+              label="Apellidos"
+              type="text"
+              variant="outlined"
+              name="lastName"
+              className={classes.fields}
+              error={!!errors.lastName}
+              inputRef={register}
+              helperText={errors.lastName?.message}
+            />
 
-          <TextField
-            label="Telefono"
-            type="text"
-            variant="outlined"
-            name="phone"
-            inputRef={register}
-            className={classes.fields}
-            error={!!errors.phone}
-            helperText={errors.phone?.message}
-          />
-
-          <TextField
-            label="email"
-            type="text"
-            variant="outlined"
-            name="email"
-            error={!!errors.email}
-            className={classes.fields}
-            inputRef={register}
-            helperText={errors.email?.message}
-          />
-
-          <TextField
-            id="text"
-            label="Direccion"
-            type="text"
-            name="address"
-            variant="outlined"
-            inputRef={register}
-            className={classes.fields}
-            fullWidth
-          />
-
-          <div>
-            <Typography
-              color="primary"
-              variant="h6"
-              style={{ textAlign: 'center' }}
+            <TextField
+              label="Telefono"
+              type="text"
+              variant="outlined"
+              name="phone"
+              inputRef={register}
+              className={classes.fields}
+              error={!!errors.phone}
+              helperText={errors.phone?.message}
+            />
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+              }}
             >
-              Genero
-            </Typography>
-            <br />
-            <section>
-              <Controller
-                as={
-                  <RadioGroup aria-label="gender">
-                    <FormControlLabel
-                      value="mujer"
-                      control={<Radio />}
-                      label="Mujer"
-                      className={classes.radios}
-                    />
-                    <FormControlLabel
-                      value="hombre"
-                      control={<Radio />}
-                      label="Hombre"
-                      className={classes.radios}
-                    />
-                  </RadioGroup>
-                }
-                name="gender"
-                control={control}
+              <TextField
+                label="email"
+                type="text"
+                variant="outlined"
+                name="email"
+                error={!!errors.email}
+                className={classes.fields}
+                inputRef={register}
+                helperText={errors.email?.message}
               />
-            </section>
-          </div>
 
-          <TextField
-            id="date"
-            required
-            variant="outlined"
-            label="Fecha Nacimiento"
-            type="date"
-            name="birthDate"
-            style={{ justifyContent: 'unset' }}
-            inputRef={register}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            margin="none"
-          />
+              <TextField
+                id="text"
+                label="Direccion"
+                type="text"
+                name="address"
+                variant="outlined"
+                inputRef={register}
+                className={classes.fields}
+              />
 
-          <TextField
-            id="notes"
-            label="Comentarios / Notas"
-            name="notes"
-            multiline
-            rows={4}
-            variant="outlined"
-            inputRef={register}
-            fullWidth
-          />
+              <TextField
+                id="date"
+                required
+                variant="outlined"
+                label="Fecha Nacimiento"
+                type="date"
+                name="birthDate"
+                style={{ marginLeft: '14px' }}
+                inputRef={register}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                margin="none"
+              />
+            </div>
 
-          <Button
-            type="submit"
-            color="primary"
-            variant="contained"
-            className={classes.submit}
-          >
-            Registrar
-          </Button>
-        </form>
-      </Container>
-    </div>
+            <div className={classes.radios}>
+              <Typography
+                color="primary"
+                variant="h6"
+                style={{ textAlign: 'center' }}
+              >
+                Genero
+              </Typography>
+
+              <div>
+                <br />
+                <section>
+                  <Controller
+                    as={
+                      <RadioGroup aria-label="gender">
+                        <FormControlLabel
+                          value="mujer"
+                          control={<Radio />}
+                          label="Mujer"
+                          className={classes.radios}
+                        />
+                        <FormControlLabel
+                          value="hombre"
+                          control={<Radio />}
+                          label="Hombre"
+                          className={classes.radios}
+                        />
+                      </RadioGroup>
+                    }
+                    name="gender"
+                    control={control}
+                  />
+                </section>
+              </div>
+            </div>
+
+            <TextField
+              id="notes"
+              label="Comentarios / Notas"
+              name="notes"
+              multiline
+              rows={4}
+              variant="outlined"
+              inputRef={register}
+              fullWidth
+              style={{ marginTop: '1.5rem' }}
+            />
+            <div>
+              <Button
+                type="submit"
+                color="primary"
+                variant="contained"
+                className={classes.submit}
+                fullWidth
+              >
+                Registrar
+              </Button>
+            </div>
+          </form>
+        </Container>
+      </div>
+    </Layout>
   );
 }

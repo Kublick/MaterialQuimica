@@ -32,6 +32,7 @@ export default (state, action) => {
         employee: action.payload,
       };
     case EMPLOYEE_ENDSESION:
+      localStorage.removeItem('token');
       return {
         ...state,
         token: null,
