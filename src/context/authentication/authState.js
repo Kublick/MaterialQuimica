@@ -38,13 +38,13 @@ const AuthState = (props) => {
         type: EMPLOYEE_ERROR,
         payload: error.response.data.msg,
       });
+      setTimeout(() => {
+        dispatch({
+          type: EMPLOYEE_ERROR,
+          payload: false,
+        });
+      }, 3000);
     }
-    setTimeout(() => {
-      dispatch({
-        type: EMPLOYEE_ERROR,
-        payload: false,
-      });
-    }, 3000);
   };
 
   const authEmployee = async () => {
@@ -67,14 +67,13 @@ const AuthState = (props) => {
         type: EMPLOYEE_ERROR,
         payload: error.response.data.msg,
       });
+      setTimeout(() => {
+        dispatch({
+          type: EMPLOYEE_ERROR,
+          payload: false,
+        });
+      }, 3000);
     }
-
-    setTimeout(() => {
-      dispatch({
-        type: EMPLOYEE_ERROR,
-        payload: false,
-      });
-    }, 3000);
   };
 
   const employeeLogin = async (data) => {
@@ -94,13 +93,13 @@ const AuthState = (props) => {
         type: EMPLOYEELOGIN_ERROR,
         payload: error.response.data.msg,
       });
+      setTimeout(() => {
+        dispatch({
+          type: EMPLOYEE_ERROR,
+          payload: false,
+        });
+      }, 3000);
     }
-    setTimeout(() => {
-      dispatch({
-        type: EMPLOYEE_ERROR,
-        payload: false,
-      });
-    }, 3000);
   };
 
   const employeeSignOut = () => {

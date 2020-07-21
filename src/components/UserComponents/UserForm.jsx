@@ -78,7 +78,11 @@ export default function UserForm() {
     <Layout>
       <div className={classes.root}>
         <Container className={classes.paper}>
-          <Typography variant="h4" color="primary">
+          <Typography
+            variant="h4"
+            color="primary"
+            style={{ textAlign: 'center' }}
+          >
             Registro de Pacientes
           </Typography>
 
