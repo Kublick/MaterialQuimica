@@ -12,9 +12,9 @@ import {
 } from '@material-ui/core';
 import { useForm, Controller } from 'react-hook-form';
 import LogoLab from '../../assets/Logo_Lab_half.png';
-import AlertsContext from '../../context/alerts/alertsContext';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers';
+import ServerAlert from '../helpers/Server_Alert';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -60,12 +60,8 @@ const schema = yup.object().shape({
 });
 
 const Login = (props) => {
-  // take values from
-  const alertsContext = useContext(AlertsContext);
-  const { showAlert } = alertsContext;
-
   const authContext = useContext(AuthContext);
-  const { authenticated, addEmployee } = authContext;
+  const { alerts, authenticated, addEmployee } = authContext;
 
   const classes = useStyles();
 
@@ -79,7 +75,6 @@ const Login = (props) => {
   });
 
   const onSubmit = (data) => {
-    //  showAlert(true);
     addEmployee(data);
   };
 
@@ -87,9 +82,6 @@ const Login = (props) => {
     if (authenticated) {
       props.history.push('/layout');
     }
-    // if (serverError) {
-    //   showAlert(serverError);
-    // }
   }, [authenticated, props.history]);
 
   return (
@@ -99,6 +91,7 @@ const Login = (props) => {
         <Typography className={classes.spacer} variant="h5">
           Generar un Nuevo Usuario
         </Typography>
+        {alerts && <ServerAlert />}
         <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
           <TextField
             variant="outlined"

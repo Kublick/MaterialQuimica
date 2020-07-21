@@ -9,7 +9,7 @@ import {
   Container,
 } from '@material-ui/core';
 import AuthContext from '../../context/authentication/authContext';
-import AlertsContext from '../../context/alerts/alertsContext';
+import ServerAlert from '../helpers/Server_Alert';
 import { useForm } from 'react-hook-form';
 import LogoLab from '../../assets/Logo_Lab_half.png';
 import * as yup from 'yup';
@@ -51,9 +51,6 @@ const schema = yup.object().shape({
 const Login = (props) => {
   const classes = useStyles();
 
-  const alertsContext = useContext(AlertsContext);
-  const { showAlert } = alertsContext;
-
   const authContext = useContext(AuthContext);
   const { alerts, authenticated, employeeLogin } = authContext;
 
@@ -61,11 +58,7 @@ const Login = (props) => {
     if (authenticated) {
       props.history.push('/users/');
     }
-    if (alerts) {
-      showAlert();
-    }
-    // eslint-disable-next-line
-  }, [alerts, authenticated, props.history]);
+  }, [authenticated, props.history]);
 
   const { register, handleSubmit, errors } = useForm({
     mode: 'onBlur',
@@ -83,6 +76,7 @@ const Login = (props) => {
         <Typography component="h1" variant="h5">
           Log in
         </Typography>
+        {alerts && <ServerAlert />}
         <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
           <TextField
             variant="outlined"

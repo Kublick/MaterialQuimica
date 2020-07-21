@@ -34,13 +34,17 @@ const AuthState = (props) => {
 
       authEmployee();
     } catch (error) {
-      const alert = { alerts: error.response.data.msg };
-
       dispatch({
         type: EMPLOYEE_ERROR,
-        payload: alert,
+        payload: error.response.data.msg,
       });
     }
+    setTimeout(() => {
+      dispatch({
+        type: EMPLOYEE_ERROR,
+        payload: false,
+      });
+    }, 3000);
   };
 
   const authEmployee = async () => {
@@ -52,7 +56,7 @@ const AuthState = (props) => {
 
     try {
       const res = await axiosClient.get('/api/auth');
-      console.log(res);
+
       dispatch({
         type: EMPLOYEELOGIN_SUCCESS,
         payload: res.data.employee,
@@ -64,11 +68,17 @@ const AuthState = (props) => {
         payload: error.response.data.msg,
       });
     }
+
+    setTimeout(() => {
+      dispatch({
+        type: EMPLOYEE_ERROR,
+        payload: false,
+      });
+    }, 3000);
   };
 
   const employeeLogin = async (data) => {
     try {
-      console.log('que llega', data);
       const res = await axiosClient.post('/api/auth', data);
 
       console.log(res.data);
@@ -85,6 +95,12 @@ const AuthState = (props) => {
         payload: error.response.data.msg,
       });
     }
+    setTimeout(() => {
+      dispatch({
+        type: EMPLOYEE_ERROR,
+        payload: false,
+      });
+    }, 3000);
   };
 
   const employeeSignOut = () => {
