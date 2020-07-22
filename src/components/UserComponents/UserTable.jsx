@@ -1,15 +1,11 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import MaterialTable from 'material-table';
-import { Create } from '@material-ui/icons';
 import axiosClient from '../../config/axios';
 import Layout from '../../layout/Layout';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    marginLeft: '240px',
-  },
   paper: {
     padding: theme.spacing(2),
     maxWidth: '860px',
@@ -49,7 +45,7 @@ const UserTable = () => {
       <Container>
         <div className={classes.root}>
           <MaterialTable
-            title="Remote Data Preview"
+            title="Listado de Pacientes"
             columns={[
               { title: 'Apellidos', field: 'lastName' },
               { title: 'Nombre', field: 'name' },
@@ -59,6 +55,22 @@ const UserTable = () => {
               { title: 'Fecha Nacimiento', field: 'birthDate' },
             ]}
             data={data}
+            actions={[
+              {
+                icon: 'edit',
+                tooltip: 'Editar',
+                onClick: (event, rowData) => alert('You saved ' + rowData.name),
+              },
+              {
+                icon: 'delete',
+                tooltip: 'Borrar Usuario',
+                onClick: (event, rowData) =>
+                  alert('You deleted ' + rowData.name),
+              },
+            ]}
+            options={{
+              actionsColumnIndex: -1,
+            }}
           />
         </div>
       </Container>

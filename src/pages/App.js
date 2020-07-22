@@ -4,8 +4,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../theme/theme';
 import Landing from '../layout/Landing';
 import Login from '../components/login/Login';
-import Users from '../components/UserComponents/UserForm';
-import UserTable from '../components/UserComponents/UserTable';
+import UsersLanding from '../components/UserComponents/UserLanding';
 import AddEmployee from '../components/login/NewEmployee';
 import AuthState from '../context/authentication/authState';
 import UserState from '../context/userContext/userState';
@@ -26,8 +25,7 @@ export default function App() {
               <Route path="/" exact component={Login} />
               <Route path="/addEmployee" exact component={AddEmployee} />
               <PrivateRoute path="/landing/" exact component={Landing} />
-              <PrivateRoute path="/users/" exact component={Users} />
-              <PrivateRoute path="/users/edit" exact component={UserTable} />
+              <PrivateRoute path="/users/" exact component={UsersLanding} />
             </Switch>
           </ThemeProvider>
         </Router>
