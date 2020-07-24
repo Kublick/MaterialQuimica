@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
   TextField,
   Typography,
@@ -14,6 +14,7 @@ import { yupResolver } from '@hookform/resolvers';
 import * as yup from 'yup';
 import UserContext from '../../context/userContext/userContext';
 import Layout from '../../layout/Layout';
+import { DevTool } from '@hookform/devtools';
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
@@ -52,26 +53,48 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UserForm() {
   const userContext = useContext(UserContext);
-  const { addUser } = userContext;
+  const { user, updateUser, edit } = userContext;
+
+  console.log('valor de edit desde update', edit);
 
   const classes = useStyles();
-  const { register, handleSubmit, errors, control } = useForm({
+
+  const { handleSubmit, errors, control, reset } = useForm({
     defaultValues: {
       name: '',
       lastName: '',
-      email: '',
       phone: '',
-      notes: '',
+      email: '',
       address: '',
       birthDate: '',
+      gender: '',
+      notes: '',
     },
     resolver: yupResolver(schema),
     mode: 'onBlur',
   });
 
   const onSubmit = (data) => {
-    addUser(data);
+    //    addUser(data);
+    edit(false);
+    console.log(data);
   };
+
+  useEffect(() => {
+    console.log(user);
+    setTimeout(async () => {
+      await reset({
+        name: user.name,
+        lastName: user.lastName,
+        phone: user.phone,
+        email: user.email,
+        address: user.address,
+        birthDate: user.birthDate,
+        gender: user.gender,
+        notes: user.notes,
+      });
+    }, 500);
+  }, [user]);
 
   return (
     <Layout>
@@ -82,42 +105,48 @@ export default function UserForm() {
             color="primary"
             style={{ textAlign: 'center' }}
           >
-            Registro de Pacientes
+            Actualizar Pacientes
           </Typography>
 
           <form className={classes.fields} onSubmit={handleSubmit(onSubmit)}>
-            <TextField
-              label="Nombre"
-              type="text"
-              variant="outlined"
-              name="name"
-              className={classes.fields}
-              error={!!errors.name}
-              inputRef={register}
-              helperText={errors.name?.message}
-            />
+            <div>
+              <Controller
+                as={TextField}
+                control={control}
+                label="Name"
+                type="text"
+                variant="outlined"
+                className={classes.fields}
+                name="name"
+                error={!!errors.name}
+                helperText={errors.name?.message}
+              />
 
-            <TextField
-              label="Apellidos"
-              type="text"
-              variant="outlined"
-              name="lastName"
-              className={classes.fields}
-              error={!!errors.lastName}
-              inputRef={register}
-              helperText={errors.lastName?.message}
-            />
+              <Controller
+                as={TextField}
+                control={control}
+                label="Apellidos"
+                type="text"
+                variant="outlined"
+                name="lastName"
+                className={classes.fields}
+                error={!!errors.lastName}
+                helperText={errors.lastName?.message}
+              />
 
-            <TextField
-              label="Telefono"
-              type="text"
-              variant="outlined"
-              name="phone"
-              inputRef={register}
-              className={classes.fields}
-              error={!!errors.phone}
-              helperText={errors.phone?.message}
-            />
+              <Controller
+                as={TextField}
+                control={control}
+                label="Telefono"
+                type="text"
+                variant="outlined"
+                name="phone"
+                className={classes.fields}
+                error={!!errors.phone}
+                helperText={errors.phone?.message}
+              />
+            </div>
+
             <div
               style={{
                 display: 'flex',
@@ -125,28 +154,32 @@ export default function UserForm() {
                 flexWrap: 'wrap',
               }}
             >
-              <TextField
+              <Controller
+                as={TextField}
+                control={control}
                 label="email"
                 type="text"
                 variant="outlined"
                 name="email"
                 error={!!errors.email}
                 className={classes.fields}
-                inputRef={register}
                 helperText={errors.email?.message}
               />
 
-              <TextField
+              <Controller
+                as={TextField}
+                control={control}
                 id="text"
                 label="Direccion"
                 type="text"
                 name="address"
                 variant="outlined"
-                inputRef={register}
                 className={classes.fields}
               />
 
-              <TextField
+              <Controller
+                as={TextField}
+                control={control}
                 id="date"
                 required
                 variant="outlined"
@@ -154,7 +187,6 @@ export default function UserForm() {
                 type="date"
                 name="birthDate"
                 style={{ marginLeft: '14px' }}
-                inputRef={register}
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -198,17 +230,19 @@ export default function UserForm() {
               </div>
             </div>
 
-            <TextField
+            <Controller
+              as={TextField}
+              control={control}
               id="notes"
               label="Comentarios / Notas"
               name="notes"
               multiline
               rows={4}
               variant="outlined"
-              inputRef={register}
               fullWidth
               style={{ marginTop: '1.5rem' }}
             />
+
             <div>
               <Button
                 type="submit"
@@ -217,10 +251,11 @@ export default function UserForm() {
                 className={classes.submit}
                 fullWidth
               >
-                Registrar
+                Actualizar
               </Button>
             </div>
           </form>
+          <DevTool control={control} />
         </Container>
       </div>
     </Layout>

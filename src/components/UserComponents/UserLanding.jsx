@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Button } from '@material-ui/core';
 import Layout from '../../layout/Layout';
 import UserForm from './UserForm';
 import UserTable from './UserTable';
+import UserFormEdit from './UserFormEdit';
+import userContext from '../../context/userContext/userContext';
 
 const UserLanding = () => {
+  const UserContext = useContext(userContext);
+  const { edit } = UserContext;
+
   const [menu, setMenu] = useState(false);
 
   return (
@@ -18,7 +23,6 @@ const UserLanding = () => {
         variant="outlined"
         onClick={() => {
           setMenu(!menu);
-          console.log(menu);
         }}
       >
         Agregar Paciente
@@ -26,6 +30,18 @@ const UserLanding = () => {
       {menu ? <UserForm /> : null}
 
       <UserTable />
+      {edit ? (
+        <div>
+          <Button
+            color="secondary"
+            variant="outlined"
+            onClick={() => edit(false)}
+          >
+            Cancelar
+          </Button>
+          <UserFormEdit />
+        </div>
+      ) : null}
     </Layout>
   );
 };

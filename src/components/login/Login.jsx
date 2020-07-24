@@ -56,7 +56,7 @@ const Login = (props) => {
 
   useEffect(() => {
     if (authenticated) {
-      props.history.push('/users/');
+      props.history.push('/landing');
     }
   }, [authenticated, props.history]);
 

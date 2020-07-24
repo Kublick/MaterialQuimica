@@ -10,6 +10,7 @@ import AuthState from '../context/authentication/authState';
 import UserState from '../context/userContext/userState';
 import tokenAuth from '../config/tokenAuth';
 import PrivateRoute from '../components/routes/privateroute';
+import test from '../components/UserComponents/test';
 
 const token = localStorage.getItem('token');
 if (token) {
@@ -24,6 +25,7 @@ export default function App() {
             <Switch>
               <Route path="/" exact component={Login} />
               <Route path="/addEmployee" exact component={AddEmployee} />
+              <Route path="/test" component={test} />
               <PrivateRoute path="/landing/" exact component={Landing} />
               <PrivateRoute path="/users/" exact component={UsersLanding} />
             </Switch>

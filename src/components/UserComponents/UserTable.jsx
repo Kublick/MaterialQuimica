@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import MaterialTable from 'material-table';
 import axiosClient from '../../config/axios';
 import Layout from '../../layout/Layout';
+import userContext from '../../context/userContext/userContext';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -13,6 +14,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const UserTable = () => {
+  const UserContext = useContext(userContext);
+  const { updateUser, edit, setEdit } = UserContext;
+
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
   const [totalRows, setTotalRows] = useState(0);
@@ -20,7 +24,7 @@ const UserTable = () => {
 
   const fetchUsers = async (page) => {
     setLoading(true);
-    const res = await axiosClient.get('http://localhost:4000/api/users');
+    const res = await axiosClient.get('/api/users');
     const handlePageChange = (page) => {
       fetchUsers(page);
     };
@@ -39,6 +43,14 @@ const UserTable = () => {
   }, []);
 
   const classes = useStyles();
+
+  const updatingUser = (rowData) => {
+    updateUser(rowData);
+  };
+
+  const userDelete = (rowData) => {
+    console.log(rowData);
+  };
 
   return (
     <Layout>
@@ -59,13 +71,12 @@ const UserTable = () => {
               {
                 icon: 'edit',
                 tooltip: 'Editar',
-                onClick: (event, rowData) => alert('You saved ' + rowData.name),
+                onClick: (event, rowData) => updatingUser(rowData),
               },
               {
                 icon: 'delete',
                 tooltip: 'Borrar Usuario',
-                onClick: (event, rowData) =>
-                  alert('You deleted ' + rowData.name),
+                onClick: (event, rowData) => userDelete(rowData),
               },
             ]}
             options={{

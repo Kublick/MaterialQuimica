@@ -1280,6 +1280,18 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
+"@hookform/devtools@^2.0.3":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@hookform/devtools/-/devtools-2.0.3.tgz#7b499d7d1e1a6bc5f2fe34408b264f81a344ba69"
+  integrity sha512-8KQIVr/vFkiZ44JK1SCwwqeie4c8oHZFtI01JqDBKi+Ql2Wh/whM0/QVErO66lETYY9oDeTfr1yB+b5Qq0TwjA==
+  dependencies:
+    "@emotion/core" "^10.0.28"
+    "@emotion/styled" "^10.0.27"
+    "@types/lodash" "^4.14.152"
+    little-state-machine "^3.0.1"
+    lodash "^4.17.15"
+    react-simple-animate "^3.3.8"
+
 "@hookform/resolvers@^0.0.5":
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-0.0.5.tgz#eddf423734c35b1b02a048528be80a64f67781ab"
@@ -1779,6 +1791,11 @@
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
   integrity sha1-7ihweulOEdK4J7y+UnC86n8+ce4=
+
+"@types/lodash@^4.14.152":
+  version "4.14.158"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.158.tgz#b38ea8b6fe799acd076d7a8d7ab71c26ef77f785"
+  integrity sha512-InCEXJNTv/59yO4VSfuvNrZHt7eeNtWQEgnieIA+mIC+MOWM9arOWG2eQ8Vhk6NbOre6/BidiXhkZYeDY9U35w==
 
 "@types/minimatch@*":
   version "3.0.3"
@@ -7416,6 +7433,11 @@ lines-and-columns@^1.1.6:
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.1.6.tgz#1c00c743b433cd0a4e80758f7b64a57440d9ff00"
   integrity sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA=
 
+little-state-machine@^3.0.1:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/little-state-machine/-/little-state-machine-3.0.3.tgz#f30c536360752ef5a1a758558cb219e38ed6ef9f"
+  integrity sha512-DGhJS7YxWeiv0DnU7TaYw3xdwAHTRK67yeUPYmbMj17IYOmwtU9+4GKocSMlG09qrvRxV6/wJPuAiiD1IVadPw==
+
 load-json-file@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/load-json-file/-/load-json-file-1.1.0.tgz#956905708d58b4bab4c2261b04f59f31c99374c0"
@@ -9989,6 +10011,11 @@ react-scripts@3.4.1:
     workbox-webpack-plugin "4.3.1"
   optionalDependencies:
     fsevents "2.1.2"
+
+react-simple-animate@^3.3.8:
+  version "3.3.9"
+  resolved "https://registry.yarnpkg.com/react-simple-animate/-/react-simple-animate-3.3.9.tgz#5ec5f475321ab1ff1db9ffb8d51276fe3f740438"
+  integrity sha512-ADzN2NT5jD0G2Rwdw8jSTPLlKvtX2QyqW2MTUmQhh8dTBxKP39/kSjju6uVLUlYIMk93JyGpJDulsZ/p1Z9fDQ==
 
 react-transition-group@^4.0.0, react-transition-group@^4.4.0:
   version "4.4.1"
