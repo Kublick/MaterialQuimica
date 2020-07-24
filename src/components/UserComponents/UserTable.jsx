@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 
 const UserTable = () => {
   const UserContext = useContext(userContext);
-  const { updateUser, edit, setEdit } = UserContext;
+  const { updateUser, edit } = UserContext;
 
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
@@ -59,6 +59,7 @@ const UserTable = () => {
           <MaterialTable
             title="Listado de Pacientes"
             columns={[
+              { title: 'ID', field: 'shortId' },
               { title: 'Apellidos', field: 'lastName' },
               { title: 'Nombre', field: 'name' },
               { title: 'Email', field: 'email' },

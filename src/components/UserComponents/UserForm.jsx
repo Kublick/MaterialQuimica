@@ -57,6 +57,7 @@ export default function UserForm() {
   const classes = useStyles();
   const { register, handleSubmit, errors, control } = useForm({
     defaultValues: {
+      shortId: '',
       name: '',
       lastName: '',
       email: '',
@@ -70,6 +71,14 @@ export default function UserForm() {
   });
 
   const onSubmit = (data) => {
+    let shortId = (
+      data.name.substring(0, 2) +
+      data.lastName.substring(0, 2) +
+      data.birthDate.substring(0, 4) +
+      data.birthDate.substring(5, 7) +
+      data.birthDate.substring(8, 10)
+    ).toUpperCase();
+    data.shortId = shortId;
     addUser(data);
   };
 
