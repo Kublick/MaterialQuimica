@@ -23,4 +23,8 @@ router.get('/', userController.getUser);
 
 router.get('/paginate', userController.getUserPagination);
 
+router.delete('/:id', userController.deleteUser);
+
+router.put('/:id', userController.updateUser);
+
 module.exports = router;

@@ -61,6 +61,7 @@ export default function UserForm() {
 
   const { handleSubmit, errors, control, reset } = useForm({
     defaultValues: {
+      shortId: '',
       name: '',
       lastName: '',
       phone: '',

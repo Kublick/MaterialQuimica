@@ -65,3 +65,65 @@ exports.getUserPagination = async (req, res) => {
     res.status(500).send('Hubo un Error');
   }
 };
+
+exports.updateUser = async (req, res) => {
+  const {
+    notes,
+    name,
+    lastName,
+    phone,
+    email,
+    gender,
+    birthdate,
+    address,
+  } = req.body;
+
+  const newUser = {
+    notes,
+    name,
+    lastName,
+    phone,
+    email,
+    gender,
+    birthdate,
+    address,
+  };
+
+  try {
+    let user = await User.findById(req.params.id);
+    console.log(user);
+
+    if (!user) {
+      return res.status(400).json({ msg: 'El paciente no existe' });
+    }
+    console.log('new user contents', newUser);
+    //update
+
+    user = await User.findByIdAndUpdate(
+      { _id: req.params.id },
+      { $set: newUser },
+      { $new: true }
+    );
+    res.json({ user });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Hubo un Error');
+  }
+};
+
+exports.deleteUser = async (req, res) => {
+  const { user } = req.body;
+
+  try {
+    let user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(400).json({ msg: 'El cliente no existe' });
+    }
+
+    await User.findOneAndRemove({ _id: req.params.id });
+    res.json({ msg: 'Paciente Eliminado' });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: 'Ocurrio un error' });
+  }
+};
