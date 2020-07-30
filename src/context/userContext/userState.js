@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
 import UserContext from './userContext';
 import userReducer from './userReducer';
-import { UPDATE_USER } from '../../types/index';
+import { UPDATE_USER, DELETE_USER } from '../../types/index';
 import axiosClient from '../../config/axios';
 
 const UserState = (props) => {
@@ -40,6 +40,19 @@ const UserState = (props) => {
     });
   };
 
+  const deleteUser = async (data) => {
+    try {
+      console.log('deleting user', data);
+      let res = await axiosClient.delete(`/api/users/${data}`);
+      dispatch({
+        type: DELETE_USER,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -47,6 +60,7 @@ const UserState = (props) => {
         edit: state.edit,
         addUser,
         updateUser,
+        deleteUser,
       }}
     >
       {props.children}

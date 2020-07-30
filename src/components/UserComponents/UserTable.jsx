@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 
 const UserTable = () => {
   const UserContext = useContext(userContext);
-  const { updateUser, edit } = UserContext;
+  const { updateUser, deleteUser } = UserContext;
 
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
@@ -49,7 +49,7 @@ const UserTable = () => {
   };
 
   const userDelete = (rowData) => {
-    console.log(rowData);
+    deleteUser(rowData._id);
   };
 
   return (
