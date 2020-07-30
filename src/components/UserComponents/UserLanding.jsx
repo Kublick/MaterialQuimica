@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Button } from '@material-ui/core';
 import Layout from '../../layout/Layout';
 import UserForm from './UserForm';
-import GridTable from './GridTalbe';
+import GridTable from './GridTable';
 import UserFormEdit from './UserFormEdit';
 import userContext from '../../context/userContext/userContext';
 

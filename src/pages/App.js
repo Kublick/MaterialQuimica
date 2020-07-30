@@ -10,7 +10,7 @@ import AuthState from '../context/authentication/authState';
 import UserState from '../context/userContext/userState';
 import tokenAuth from '../config/tokenAuth';
 import PrivateRoute from '../components/routes/privateroute';
-import GridTable from '../components/UserComponents/GridTalbe';
+import GridTable from '../components/UserComponents/GridTable';
 
 const token = localStorage.getItem('token');
 if (token) {

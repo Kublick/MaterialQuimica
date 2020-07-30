@@ -23,7 +23,7 @@ const GridTable = () => {
   const { updateUser, deleteUser } = UserContext;
 
   return (
-    <Container>
+    <Container style={{ marginTop: '72px' }}>
       <Grid
         search={true}
         language={{
@@ -63,7 +63,7 @@ const GridTable = () => {
         columns={[
           'Nombre',
           'Apellido',
-          'email',
+          'Email',
           'Telefono',
           'Genero',
           'Fecha Nacimiento',
@@ -81,21 +81,12 @@ const GridTable = () => {
               user.gender,
               user.birthDate,
               _(
-                <IconButton
-                  style={{ background: '#1B72E7', color: 'white' }}
-                  onClick={() => updateUser(user._id)}
-                >
+                <IconButton onClick={() => updateUser(user._id)}>
                   <EditIcon />
                 </IconButton>
               ),
               _(
-                <IconButton
-                  style={{
-                    background: '#1B72E7',
-                    color: 'white',
-                  }}
-                  onClick={() => deleteUser(user._id)}
-                >
+                <IconButton onClick={() => deleteUser(user._id)}>
                   <DeleteIcon />
                 </IconButton>
               ),
