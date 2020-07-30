@@ -1,14 +1,26 @@
 import React, { useContext } from 'react';
 import { Grid, _ } from 'gridjs-react';
 import axiosClient from '../../config/axios';
+import { makeStyles } from '@material-ui/core/styles';
 import { css } from 'emotion';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 
-import { Container } from '@material-ui/core';
+import { Container, IconButton } from '@material-ui/core';
 import userContext from '../../context/userContext/userContext';
 
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    padding: theme.spacing(2),
+    maxWidth: '860px',
+  },
+}));
+
 const GridTable = () => {
+  const classes = useStyles();
+
   const UserContext = useContext(userContext);
-  const { updateUser } = UserContext;
+  const { updateUser, deleteUser } = UserContext;
 
   return (
     <Container>
@@ -21,10 +33,10 @@ const GridTable = () => {
           pagination: {
             previous: '⬅️',
             next: '➡️',
-            of: 'de',
+            of: 'de un total de',
             to: 'de',
             showing: 'Mostrando',
-            results: () => 'del total de registros',
+            results: () => 'registros',
           },
         }}
         className={{
@@ -33,32 +45,27 @@ const GridTable = () => {
               font-family: 'Roboto';
             }
           `,
-          table: css`
-            tr:hover td {
-              background-color: rgba(0, 0, 0, 0.1);
-            }
-          `,
+
           th: css`
-            text-align: center;
-            &:hover {
-              background-color: #999;
-              color: #fff;
-            }
+            border-bottom: 1px solid blue;
+            line-height: 2rem;
           `,
           td: css`
-            color: #999;
-            &:hover {
-              color: #000;
-            }
+            text-align: center;
+            border-bottom: 1px solid blue;
+            padding: 0.5rem;
           `,
-          button: css`
-            color: red;
+          footer: css`
+            text-align: right;
+            margin-top: 10px;
           `,
         }}
         columns={[
           'Nombre',
           'Apellido',
           'email',
+          'Telefono',
+          'Genero',
           'Fecha Nacimiento',
           'Editar',
           'Eliminar',
@@ -70,19 +77,34 @@ const GridTable = () => {
               user.name,
               user.lastName,
               user.email,
+              user.phone,
+              user.gender,
               user.birthDate,
-              _(<button onClick={() => updateUser(user._id)}>Editar</button>),
               _(
-                <button onClick={() => alert(`usuario ${user.name} eliminado`)}>
-                  Eliminar
-                </button>
+                <IconButton
+                  style={{ background: '#1B72E7', color: 'white' }}
+                  onClick={() => updateUser(user._id)}
+                >
+                  <EditIcon />
+                </IconButton>
+              ),
+              _(
+                <IconButton
+                  style={{
+                    background: '#1B72E7',
+                    color: 'white',
+                  }}
+                  onClick={() => deleteUser(user._id)}
+                >
+                  <DeleteIcon />
+                </IconButton>
               ),
             ]),
           total: (data) => data.user.count,
         }}
         pagination={{
           enabled: true,
-          limit: 5,
+          limit: 10,
         }}
       />
     </Container>
