@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
 import UserContext from './userContext';
 import userReducer from './userReducer';
-import { UPDATE_USER, DELETE_USER } from '../../types/index';
+import { UPDATE_USER, DELETE_USER, SELECT_USER } from '../../types/index';
 import axiosClient from '../../config/axios';
 
 const UserState = (props) => {
@@ -18,7 +18,7 @@ const UserState = (props) => {
       notes: '',
     },
     serverError: '',
-    edit: 'false',
+    edit: '',
   };
 
   const [state, dispatch] = useReducer(userReducer, initialState);
@@ -32,8 +32,16 @@ const UserState = (props) => {
     }
   };
 
+  const selectUser = (data) => {
+    setTimeout(() => {
+      dispatch({
+        type: SELECT_USER,
+        payload: data,
+      });
+    }, 1000);
+  };
+
   const updateUser = (data) => {
-    console.log(data);
     dispatch({
       type: UPDATE_USER,
       payload: data,
@@ -59,6 +67,7 @@ const UserState = (props) => {
         user: state.user,
         edit: state.edit,
         addUser,
+        selectUser,
         updateUser,
         deleteUser,
       }}

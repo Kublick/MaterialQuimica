@@ -8,11 +8,17 @@ import EditIcon from '@material-ui/icons/Edit';
 
 import { Container, IconButton } from '@material-ui/core';
 import userContext from '../../context/userContext/userContext';
+import './Grid.css';
+import Swal from 'sweetalert2';
+import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
     maxWidth: '860px',
+  },
+  contenedor: {
+    margin: '72px auto auto 280px',
   },
 }));
 
@@ -20,10 +26,28 @@ const GridTable = () => {
   const classes = useStyles();
 
   const UserContext = useContext(userContext);
-  const { updateUser, deleteUser } = UserContext;
+  const { deleteUser, selectUser } = UserContext;
+
+  const confirmDelete = (user) => {
+    Swal.fire({
+      title: `Estas seguro de querer eliminar al Paciente ? ${user.name} ${user.lastName}`,
+      text: 'Este cambio no es reversible!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No',
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire('Registro Eliminado!', '', 'success');
+        deleteUser(user._id);
+      }
+    });
+  };
 
   return (
-    <Container style={{ marginTop: '72px' }}>
+    <div className={classes.contenedor}>
       <Grid
         search={true}
         language={{
@@ -31,42 +55,26 @@ const GridTable = () => {
             placeholder: '🔍 Buscar Paciente...',
           },
           pagination: {
-            previous: '⬅️',
-            next: '➡️',
+            previous: 'Anterior',
+            next: 'Siguiente',
             of: 'de un total de',
             to: 'de',
             showing: 'Mostrando',
             results: () => 'registros',
           },
         }}
-        className={{
-          container: css`
-            * {
-              font-family: 'Roboto';
-            }
-          `,
-
-          th: css`
-            border-bottom: 1px solid blue;
-            line-height: 2rem;
-          `,
-          td: css`
-            text-align: center;
-            border-bottom: 1px solid blue;
-            padding: 0.5rem;
-          `,
-          footer: css`
-            text-align: right;
-            margin-top: 10px;
-          `,
-        }}
         columns={[
+          'Clave',
           'Nombre',
           'Apellido',
           'Email',
           'Telefono',
           'Genero',
-          'Fecha Nacimiento',
+          {
+            name: 'Fecha Nacimiento',
+            formatter: (_, row) => `${row.cells[6].data.substring(0, 10)}`,
+          },
+
           'Editar',
           'Eliminar',
         ]}
@@ -74,6 +82,7 @@ const GridTable = () => {
           url: 'http://localhost:4000/api/users/',
           then: (data) =>
             data.user.map((user) => [
+              user.shortId,
               user.name,
               user.lastName,
               user.email,
@@ -81,12 +90,12 @@ const GridTable = () => {
               user.gender,
               user.birthDate,
               _(
-                <IconButton onClick={() => updateUser(user._id)}>
+                <IconButton onClick={() => selectUser(user)}>
                   <EditIcon />
                 </IconButton>
               ),
               _(
-                <IconButton onClick={() => deleteUser(user._id)}>
+                <IconButton onClick={() => confirmDelete(user)}>
                   <DeleteIcon />
                 </IconButton>
               ),
@@ -98,7 +107,7 @@ const GridTable = () => {
           limit: 10,
         }}
       />
-    </Container>
+    </div>
   );
 };
 

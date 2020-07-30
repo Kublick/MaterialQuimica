@@ -6,7 +6,6 @@ const { check } = require('express-validator');
 const auth = require('../middleware/auth');
 
 //Crea un usuarios
-// api/employees/
 
 router.post(
   '/',

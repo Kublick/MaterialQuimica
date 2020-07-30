@@ -14,7 +14,8 @@ import { yupResolver } from '@hookform/resolvers';
 import * as yup from 'yup';
 import UserContext from '../../context/userContext/userContext';
 import Layout from '../../layout/Layout';
-import { DevTool } from '@hookform/devtools';
+
+import moment from 'moment';
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
@@ -55,8 +56,6 @@ export default function UserForm() {
   const userContext = useContext(UserContext);
   const { user, updateUser, edit } = userContext;
 
-  console.log('valor de edit desde update', edit);
-
   const classes = useStyles();
 
   const { handleSubmit, errors, control, reset } = useForm({
@@ -76,13 +75,12 @@ export default function UserForm() {
   });
 
   const onSubmit = (data) => {
-    //    addUser(data);
-    edit(false);
+    //    updateUser(data);
+
     console.log(data);
   };
 
   useEffect(() => {
-    console.log(user);
     setTimeout(async () => {
       await reset({
         name: user.name,
@@ -90,7 +88,7 @@ export default function UserForm() {
         phone: user.phone,
         email: user.email,
         address: user.address,
-        birthDate: user.birthDate,
+        birthDate: moment(user.birthDate).format('YYYY-MM-DD'),
         gender: user.gender,
         notes: user.notes,
       });
@@ -256,7 +254,6 @@ export default function UserForm() {
               </Button>
             </div>
           </form>
-          <DevTool control={control} />
         </Container>
       </div>
     </Layout>

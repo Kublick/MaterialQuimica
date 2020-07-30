@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Button } from '@material-ui/core';
 import Layout from '../../layout/Layout';
 import UserForm from './UserForm';
@@ -8,6 +8,7 @@ import userContext from '../../context/userContext/userContext';
 
 const UserLanding = () => {
   const UserContext = useContext(userContext);
+
   const { edit } = UserContext;
 
   const [menu, setMenu] = useState(false);
@@ -30,18 +31,8 @@ const UserLanding = () => {
       {menu ? <UserForm /> : null}
 
       <GridTable />
-      {edit ? (
-        <div>
-          <Button
-            color="secondary"
-            variant="outlined"
-            onClick={() => edit(false)}
-          >
-            Cancelar
-          </Button>
-          <UserFormEdit />
-        </div>
-      ) : null}
+
+      {edit ? <UserFormEdit /> : null}
     </Layout>
   );
 };

@@ -17,6 +17,7 @@
     "gridjs": "^1.14.0",
     "gridjs-react": "^1.14.0",
     "material-table": "^1.65.0",
+    "moment": "^2.27.0",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -24,6 +25,8 @@
     "react-phone-number-input": "^3.0.24",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "sweetalert2": "^9.17.1",
+    "sweetalert2-react-content": "^3.0.3",
     "yup": "^0.29.1"
   },
   "scripts": {

@@ -14,6 +14,7 @@ import { yupResolver } from '@hookform/resolvers';
 import * as yup from 'yup';
 import UserContext from '../../context/userContext/userContext';
 import Layout from '../../layout/Layout';
+import Swal from 'sweetalert2';
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
@@ -80,6 +81,12 @@ export default function UserForm() {
     ).toUpperCase();
     data.shortId = shortId;
     addUser(data);
+    Swal.fire({
+      icon: 'success',
+      title: 'Paciente Registrado',
+      showConfirmButton: false,
+      timer: 2000,
+    });
   };
 
   return (
