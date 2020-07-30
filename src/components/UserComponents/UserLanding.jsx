@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Button } from '@material-ui/core';
 import Layout from '../../layout/Layout';
 import UserForm from './UserForm';
-import UserTable from './UserTable';
+import GridTable from './GridTalbe';
 import UserFormEdit from './UserFormEdit';
 import userContext from '../../context/userContext/userContext';
 
@@ -29,7 +29,7 @@ const UserLanding = () => {
       </Button>
       {menu ? <UserForm /> : null}
 
-      <UserTable />
+      <GridTable />
       {edit ? (
         <div>
           <Button
