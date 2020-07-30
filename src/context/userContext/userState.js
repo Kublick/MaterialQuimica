@@ -34,13 +34,24 @@ const UserState = (props) => {
 
   const updateUser = (data) => {
     console.log(data);
-
-    // dispatch({
-    //   type: UPDATE_USER,
-    //   payload: data,
-    // });
+    dispatch({
+      type: UPDATE_USER,
+      payload: data,
+    });
   };
 
+  const deleteUser = async (data) => {
+    try {
+      console.log('deleting user', data);
+      let res = await axiosClient.delete(`/api/users/${data}`);
+      dispatch({
+        type: DELETE_USER,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <UserContext.Provider
       value={{
