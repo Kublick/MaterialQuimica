@@ -34,10 +34,11 @@ const UserState = (props) => {
 
   const updateUser = (data) => {
     console.log(data);
-    dispatch({
-      type: UPDATE_USER,
-      payload: data,
-    });
+
+    // dispatch({
+    //   type: UPDATE_USER,
+    //   payload: data,
+    // });
   };
 
   return (

@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Grid, _ } from 'gridjs-react';
 import axiosClient from '../../config/axios';
 import { css } from 'emotion';
 
+import { Container } from '@material-ui/core';
+import userContext from '../../context/userContext/userContext';
+
 const GridTable = () => {
+  const UserContext = useContext(userContext);
+  const { updateUser } = UserContext;
+
   return (
-    <div>
+    <Container>
       <Grid
         search={true}
         language={{
@@ -45,6 +51,9 @@ const GridTable = () => {
               color: #000;
             }
           `,
+          button: css`
+            color: red;
+          `,
         }}
         columns={[
           'Nombre',
@@ -62,7 +71,7 @@ const GridTable = () => {
               user.lastName,
               user.email,
               user.birthDate,
-              _(<button onClick={() => alert(user._id)}>Editar</button>),
+              _(<button onClick={() => updateUser(user._id)}>Editar</button>),
               _(
                 <button onClick={() => alert(`usuario ${user.name} eliminado`)}>
                   Eliminar
@@ -76,7 +85,7 @@ const GridTable = () => {
           limit: 5,
         }}
       />
-    </div>
+    </Container>
   );
 };
 
