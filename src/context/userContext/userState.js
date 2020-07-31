@@ -7,6 +7,7 @@ import axiosClient from '../../config/axios';
 const UserState = (props) => {
   const initialState = {
     user: {
+      id: '',
       name: '',
       lastname: '',
       phone: '',
@@ -26,7 +27,6 @@ const UserState = (props) => {
   const addUser = async (data) => {
     try {
       let res = await axiosClient.post('/api/users', data);
-      console.log(res);
     } catch (error) {
       console.log(error);
     }
@@ -42,6 +42,8 @@ const UserState = (props) => {
   };
 
   const updateUser = (data) => {
+    let res = axiosClient.put(`/api/users/${state.user._id}`, data);
+    console.log(data);
     dispatch({
       type: UPDATE_USER,
       payload: data,

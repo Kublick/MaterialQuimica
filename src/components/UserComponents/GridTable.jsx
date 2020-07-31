@@ -10,7 +10,6 @@ import { Container, IconButton } from '@material-ui/core';
 import userContext from '../../context/userContext/userContext';
 import './Grid.css';
 import Swal from 'sweetalert2';
-import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -79,7 +78,7 @@ const GridTable = () => {
           'Eliminar',
         ]}
         server={{
-          url: 'http://localhost:4000/api/users/',
+          url: process.env.REACT_APP_BACKEND_URL + '/api/users/',
           then: (data) =>
             data.user.map((user) => [
               user.shortId,

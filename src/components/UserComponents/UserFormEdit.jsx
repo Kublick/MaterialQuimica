@@ -54,13 +54,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UserForm() {
   const userContext = useContext(UserContext);
-  const { user, updateUser, edit } = userContext;
+  const { user, updateUser } = userContext;
 
   const classes = useStyles();
 
-  const { handleSubmit, errors, control, reset } = useForm({
+  const { handleSubmit, errors, control, reset, setValue } = useForm({
     defaultValues: {
       shortId: '',
+      id: '',
       name: '',
       lastName: '',
       phone: '',
@@ -74,15 +75,12 @@ export default function UserForm() {
     mode: 'onBlur',
   });
 
-  const onSubmit = (data) => {
-    //    updateUser(data);
-
-    console.log(data);
-  };
-
   useEffect(() => {
     setTimeout(async () => {
+      console.log(user);
       await reset({
+        id: user._id,
+        shortId: user.shortId,
         name: user.name,
         lastName: user.lastName,
         phone: user.phone,
@@ -92,8 +90,14 @@ export default function UserForm() {
         gender: user.gender,
         notes: user.notes,
       });
-    }, 500);
+    }, 100);
   }, [user]);
+
+  const onSubmit = (data) => {
+    console.log('antes de hacer submit', data);
+
+    updateUser(data);
+  };
 
   return (
     <Layout>

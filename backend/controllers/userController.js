@@ -63,7 +63,7 @@ exports.updateUser = async (req, res) => {
     phone,
     email,
     gender,
-    birthdate,
+    birthDate,
     address,
   } = req.body;
 
@@ -74,7 +74,7 @@ exports.updateUser = async (req, res) => {
     phone,
     email,
     gender,
-    birthdate,
+    birthDate,
     address,
   };
 

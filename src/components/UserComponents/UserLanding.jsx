@@ -29,10 +29,9 @@ const UserLanding = () => {
         Agregar Paciente
       </Button>
       {menu ? <UserForm /> : null}
+      {edit ? <UserFormEdit /> : null}
 
       <GridTable />
-
-      {edit ? <UserFormEdit /> : null}
     </Layout>
   );
 };
